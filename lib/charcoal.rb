@@ -1,6 +1,4 @@
 module Charcoal
-  VERSION = "0.0.1"
-
   def self.configuration
     @configuration ||= {
       "credentials" => true,
