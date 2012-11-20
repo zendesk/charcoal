@@ -14,8 +14,7 @@ class Charcoal::CORSControllerTest < ActionController::TestCase
     context "OPTIONS to #preflight" do
       context "with request method = OPTIONS" do
         setup do
-          @request.path = "/test"
-
+          @request.stubs(:path => "/test")
           get :preflight
         end
 
@@ -23,9 +22,18 @@ class Charcoal::CORSControllerTest < ActionController::TestCase
           assert_equal "GET,PUT", @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
         end
 
+        {
+          "Access-Control-Max-Age" => "max-age",
+          "Access-Control-Allow-Headers" => "allow-headers"
+        }.each do |header, key|
+          should "set #{header} header" do
+            assert_equal Charcoal.configuration[key], @response.headers[header], @response.headers.inspect
+          end
+        end
+
         should "render text/plain response" do
           assert_equal " ", @response.body
-          assert @response.content_type.include?("text/plain")
+          assert_match %r[text/plain], @response.headers["Content-Type"], @response.headers.inspect
         end
       end
     end

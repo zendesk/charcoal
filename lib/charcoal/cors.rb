@@ -29,8 +29,6 @@ module Charcoal
       response.headers["Access-Control-Allow-Origin"] = Charcoal.configuration["allow-origin"]
       response.headers["Access-Control-Allow-Credentials"] = Charcoal.configuration["credentials"]
       response.headers["Access-Control-Expose-Headers"] = Charcoal.configuration["expose-headers"]
-      response.headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"]
-      response.headers['Access-Control-Allow-Headers'] = Charcoal.configuration["allow-headers"]
     end
   end
 end

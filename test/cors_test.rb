@@ -31,9 +31,7 @@ class TestCorsControllerTest < ActionController::TestCase
       {
         "Access-Control-Allow-Origin" => "allow-origin",
         "Access-Control-Allow-Credentials" => "credentials",
-        "Access-Control-Expose-Headers" => "expose-headers",
-        "Access-Control-Max-Age" => "max-age",
-        "Access-Control-Allow-Headers" => "allow-headers"
+        "Access-Control-Expose-Headers" => "expose-headers"
       }.each do |header, key|
         context "CORS header -> #{header}" do
           setup do
