@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'bundler'
 
+ENV["RAILS_ENV"] = "test"
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -19,6 +21,7 @@ require 'charcoal'
 
 class TestApp < Rails::Application
   config.active_support.deprecation = :stderr
+  config.logger = Logger.new(RUBY_PLATFORM =~ /(mingw|bccwin|wince|mswin32)/i ? 'NUL:' : '/dev/null')
 end
 
 TestApp.initialize!
