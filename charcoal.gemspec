@@ -17,17 +17,11 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
-    "Appraisals",
     "Gemfile",
     "LICENSE",
     "README.md",
     "Rakefile",
-    "gemfiles/rails_2.3.gemfile",
-    "gemfiles/rails_2.3.gemfile.lock",
-    "gemfiles/rails_3.1.gemfile",
-    "gemfiles/rails_3.1.gemfile.lock",
-    "gemfiles/rails_3.2.gemfile",
-    "gemfiles/rails_3.2.gemfile.lock",
+    "charcoal.gemspec",
     "lib/charcoal.rb",
     "lib/charcoal/controller_filter.rb",
     "lib/charcoal/cors.rb",
