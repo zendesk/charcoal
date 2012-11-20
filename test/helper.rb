@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'bundler'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -7,13 +8,27 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'minitest/unit'
 
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require "action_controller/railtie"
+require "rails/test_unit/railtie"
+
+require 'test/unit'
+require 'shoulda'
+
 require 'charcoal'
 
-class MiniTest::Unit::TestCase
+class TestApp < Rails::Application
+  config.active_support.deprecation = :stderr
 end
 
-MiniTest::Unit.autorun
+TestApp.initialize!
+
+TestApp.routes.draw do
+  match ':controller/:action'
+end
+
+class ActionController::TestCase
+  def setup
+    @routes = TestApp.routes
+  end
+end
