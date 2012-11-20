@@ -1,6 +1,7 @@
 # This controller handles CORS preflight requests
 # See https://developer.mozilla.org/En/HTTP_access_control for documentation
 
+require 'action_controller'
 require 'active_support/version'
 
 class Charcoal::CORSController < (defined?(ApplicationController) ? ApplicationController : ActionController::Base)

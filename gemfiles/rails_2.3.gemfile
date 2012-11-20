@@ -9,6 +9,7 @@ gem "bundler", "~> 1.2.0", :group=>:development
 gem "jeweler", "~> 1.8.4", :group=>:development
 gem "shoulda", ">= 0", :group=>:test
 gem "shoulda-context", ">= 0", :group=>:test
-gem "mocha", :group=>:test, :require=>"mocha/setup"
-gem "rails", "~> 2.3.5"
+gem "mocha", :group=>:test
+gem "activesupport", "~> 2.3.5"
+gem "actionpack", "~> 2.3.5"
 

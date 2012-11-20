@@ -11,9 +11,9 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-version = Bundler.load.specs.find {|spec| spec.name == "rails"}.version.to_s
+require 'active_support/version'
 
-if version >= "3.0.0"
+if ActiveSupport::VERSION::MAJOR >= 3
   require "action_controller/railtie"
   require "rails/test_unit/railtie"
 

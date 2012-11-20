@@ -2,7 +2,8 @@ source "http://rubygems.org"
 
 gem "rake"
 
-gem "rails", ">= 2.3.5"
+gem "activesupport", ">= 2.3.5"
+gem "actionpack", ">= 2.3.5"
 
 gem "appraisal", ">= 0.5.0", :group => :development
 gem "yard", "~> 0.7", :group => :development
