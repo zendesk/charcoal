@@ -27,6 +27,7 @@ end
 TestApp.initialize!
 
 TestApp.routes.draw do
+  match '/test' => "test#test", :via => [:get, :put]
   match ':controller/:action'
 end
 
