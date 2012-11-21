@@ -23,7 +23,7 @@ class Charcoal::CORSController < ActionController::Base
           controller = route.send(:requirement_for, :controller).camelize
           controller = "#{controller}Controller".constantize
 
-          action = route.send(:requirement_for, :action)
+          action = route.send(:requirement_for, :action) || params[:path].last.split(".").first
 
           controller.respond_to?(:cors_allowed) && controller.cors_allowed?(action)
         else
