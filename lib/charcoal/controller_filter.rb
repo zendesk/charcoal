@@ -11,10 +11,11 @@ module Charcoal
           options = args.last.is_a?(Hash) ? args.pop : {}
           options.assert_valid_keys(:only, :except, :if, :unless)
 
-          if options[:only]
-            methods = [options[:only]].flatten.compact.map(&:to_sym)
-          else
-            methods = public_instance_methods(false).map(&:to_sym) - [options[:except]].flatten.compact.map(&:to_sym)
+          methods = args.map(&:to_sym)
+
+          if args.empty?
+            # populate with....
+            # methods |= ?
           end
 
           if options[:unless]

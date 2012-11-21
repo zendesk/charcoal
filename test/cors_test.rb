@@ -3,6 +3,8 @@ require File.expand_path('helper', File.dirname(__FILE__))
 class TestCorsController < ActionController::Base
   include Charcoal::CORS
 
+  allow_cors :test_action
+
   def test_action
     render :text => "noop"
   end
@@ -14,7 +16,6 @@ class TestCorsControllerTest < ActionController::TestCase
       subject { TestCorsController.new }
 
       setup do
-        TestCorsController.allow_cors
         subject.params = { :action => "test_action" }
       end
 
@@ -24,10 +25,6 @@ class TestCorsControllerTest < ActionController::TestCase
     end
 
     context "cors callback" do
-      setup do
-        TestCorsController.allow_cors
-      end
-
       {
         "Access-Control-Allow-Origin" => "allow-origin",
         "Access-Control-Allow-Credentials" => "credentials",

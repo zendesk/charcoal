@@ -13,10 +13,21 @@ class Charcoal::CORSController < ActionController::Base
   def preflight
     allowed_methods = ActionController::Routing::HTTP_METHODS.select do |verb|
       begin
-        if ActiveSupport::VERSION::MAJOR >= 3
-          Rails.application.routes.recognize_path(request.path, request.env.merge(:method => verb))
+        route = if ActiveSupport::VERSION::MAJOR >= 3
+          Rails.application.routes.recognize(request.path, request.env.merge(:method => verb))
         else
           ActionController::Routing::Routes.routes.find {|r| r.recognize(request.path, request.env.merge(:method => verb))}
+        end
+
+        if route
+          controller = route.send(:requirement_for, :controller).camelize
+          controller = "#{controller}Controller".constantize
+
+          action = route.send(:requirement_for, :action)
+
+          controller.respond_to?(:cors_allowed) && controller.cors_allowed?(action)
+        else
+          false
         end
       rescue ActionController::RoutingError
         false

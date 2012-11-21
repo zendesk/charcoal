@@ -4,6 +4,7 @@ class JSONPControllerTester < ActionController::Base
   include Charcoal::JSONP
 
   caches_action :test
+  allow_jsonp :test
 
   def test
     render :json => { :key => :value }
@@ -18,8 +19,6 @@ class JSONPTest < ActionController::TestCase
       setup do
         @caching, ActionController::Base.perform_caching = ActionController::Base.perform_caching, true
         @cache_store, ActionController::Base.cache_store = ActionController::Base.cache_store, :memory_store
-
-        JSONPControllerTester.allow_jsonp
       end
 
       teardown do
@@ -62,7 +61,6 @@ class JSONPTest < ActionController::TestCase
 
     setup do
       subject.params = {}
-      JSONPControllerTester.allow_jsonp
     end
 
     context "jsonp callback" do
