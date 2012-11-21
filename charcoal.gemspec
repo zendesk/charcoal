@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "charcoal"
-  s.version = "0.0.1"
+  s.version = "0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Davidovitz"]
@@ -17,11 +17,18 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    "Appraisals",
     "Gemfile",
     "LICENSE",
     "README.md",
     "Rakefile",
     "charcoal.gemspec",
+    "gemfiles/rails_2.3.gemfile",
+    "gemfiles/rails_2.3.gemfile.lock",
+    "gemfiles/rails_3.1.gemfile",
+    "gemfiles/rails_3.1.gemfile.lock",
+    "gemfiles/rails_3.2.gemfile",
+    "gemfiles/rails_3.2.gemfile.lock",
     "lib/charcoal.rb",
     "lib/charcoal/controller_filter.rb",
     "lib/charcoal/cors.rb",
