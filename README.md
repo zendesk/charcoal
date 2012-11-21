@@ -7,16 +7,57 @@ JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration 
 ### JSONP
 
 Include the module `Charcoal::JSONP` in the controller you'd like to allow JSONP.
-You may then use `allow_jsonp` class method with the following options:
+You may then use `allow\_jsonp` class method with the following options:
 
+```ruby
+# directive is a method (symbol) or block (taking one argument, the controller instance)
+allow_jsonp method [method2 ...], :if => directive, :unless => directive
+```
+
+`:all` is also a valid argument that applies to all methods. The default (with no arguments) is the same as `all`.
 
 Requests that come in with a callback parameter (e.g. `http://test.com/users.json?callback=hello`)
 will have the response body wrapped in that callback and the content type changed to `application/javascript`
 
 ### CORS
 
+Please familiarize yourself with the [documentation](https://developer.mozilla.org/En/HTTP_access_control) ([wiki](https://en.wikipedia.org/CORS)) before proceeding.
+
 Include the module `Charcoal::CORS` in the controller you'd like to allow CORS.
-Preflight controller...
+`allow\_cors` accepts the same arguments as `allow\_jsonp`
+
+Included is a CORS pre-flight controller that must be hooked up to the Rails router:
+
+Rails 2:
+```ruby
+map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "CORS", :namespace => "charcoal"
+```
+
+Rails 3:
+```ruby
+TODO
+```
+
+#### Configuration
+
+The configuration options and defaults for CORS are as follows:
+
+```ruby
+# Access-Control-Allow-Origin
+"allow-origin" => "*"
+
+# Access-Control-Allow-Headers
+"allow-headers" => ["X-Requested-With", "X-Prototype-Version"]
+
+# Sets Access-Control-Allow-Credentials
+"credentials" => true
+
+# Access-Control-Allow-Headers
+"expose-headers" => []
+
+# Access-Control-Max-Age
+"max-age" => 86400
+```
 
 
 ## Contributing to charcoal
