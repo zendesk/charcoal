@@ -17,10 +17,15 @@ module Charcoal
       allow :jsonp do |method, directive|
         jsonp_allowed[method.to_sym] = directive
       end
+
+      def jsonp_allowed?(instance, action)
+        jsonp_allowed[action.to_sym].try(:call, instance) ||
+          (action != :all && jsonp_allowed?(instance, :all))
+      end
     end
 
     def jsonp_allowed?
-      self.class.jsonp_allowed[params[:action].try(:to_sym)].call(self)
+      self.class.jsonp_allowed?(self, params[:action])
     end
 
     def jsonp_request?

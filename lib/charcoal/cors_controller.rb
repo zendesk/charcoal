@@ -25,7 +25,7 @@ class Charcoal::CORSController < ActionController::Base
 
           action = route.send(:requirement_for, :action) || params[:path].last.split(".").first
 
-          controller.respond_to?(:cors_allowed) && controller.cors_allowed?(action)
+          controller.respond_to?(:cors_allowed) && controller.cors_allowed?(self, action)
         else
           false
         end

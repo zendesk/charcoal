@@ -29,9 +29,6 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Helps you support JSONP and CORS in your Rails app}
   gem.email = "sdavidovitz@zendesk.com"
   gem.authors = ["Steven Davidovitz"]
-
-  gem.files.exclude 'Appraisals'
-  Dir.glob('gemfiles/*').each {|entry| gem.files.exclude(entry)}
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

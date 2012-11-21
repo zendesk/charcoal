@@ -21,7 +21,7 @@ class Charcoal::CORSControllerTest < ActionController::TestCase
       end
 
       should "allow proper methods" do
-        assert_equal "", @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
+        assert_nil @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
       end
     end
 

@@ -12,11 +12,7 @@ module Charcoal
           options.assert_valid_keys(:only, :except, :if, :unless)
 
           methods = args.map(&:to_sym)
-
-          if args.empty?
-            # populate with....
-            # methods |= ?
-          end
+          methods = [:all] if methods.empty?
 
           if options[:unless]
             directive = lambda {|c| !parse_directive(options[:unless]).call(c)}
@@ -39,7 +35,7 @@ module Charcoal
       if directive.respond_to?(:to_sym) && method_defined?(directive.to_sym)
         lambda {|c| c.send(directive.to_sym)}
       else
-        lambda {|c| directive }
+        lambda {|c| directive}
       end
     end
   end

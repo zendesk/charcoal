@@ -18,13 +18,14 @@ module Charcoal
         cors_allowed[method.to_sym] = directive
       end
 
-      def cors_allowed?(action)
-        cors_allowed[action.to_sym].call(self)
+      def cors_allowed?(instance, action)
+        cors_allowed[action.to_sym].try(:call, instance) ||
+          (action != :all && cors_allowed?(instance, :all))
       end
     end
 
     def cors_allowed?
-      self.class.cors_allowed?(params[:action])
+      self.class.cors_allowed?(self, params[:action])
     end
 
     protected
