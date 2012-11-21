@@ -14,16 +14,18 @@ class Charcoal::CORSController < ActionController::Base
     allowed_methods = ActionController::Routing::HTTP_METHODS.select do |verb|
       begin
         route = if ActiveSupport::VERSION::MAJOR >= 3
-          Rails.application.routes.recognize(request.path, request.env.merge(:method => verb))
+          Rails.application.routes.recognize_path(request.path, request.env.merge(:method => verb))
         else
           ActionController::Routing::Routes.routes.find {|r| r.recognize(request.path, request.env.merge(:method => verb))}
         end
 
         if route
-          controller = route.send(:requirement_for, :controller).camelize
+          route = route.requirements if ActiveSupport::VERSION::MAJOR < 3
+
+          controller = route[:controller].camelize
           controller = "#{controller}Controller".constantize
 
-          action = route.send(:requirement_for, :action) || params[:path].last.split(".").first
+          action = route[:action] || params[:path].last.split(".").first
 
           controller.respond_to?(:cors_allowed) && controller.cors_allowed?(self, action)
         else
