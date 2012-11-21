@@ -6,7 +6,7 @@ require 'active_support/version'
 
 require 'charcoal/cors_helper'
 
-class Charcoal::CORSController < (defined?(ApplicationController) ? ApplicationController : ActionController::Base)
+class Charcoal::CORSController < ActionController::Base
   include Charcoal::CORS
 
   # OPTIONS *
