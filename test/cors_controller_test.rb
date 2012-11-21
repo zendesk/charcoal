@@ -22,13 +22,12 @@ class Charcoal::CORSControllerTest < ActionController::TestCase
           assert_equal "GET,PUT", @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
         end
 
-        {
-          "Access-Control-Max-Age" => "max-age",
-          "Access-Control-Allow-Headers" => "allow-headers"
-        }.each do |header, key|
-          should "set #{header} header" do
-            assert_equal Charcoal.configuration[key], @response.headers[header], @response.headers.inspect
-          end
+        should "set Access-Control-Allow-Headers header" do
+          assert_equal Charcoal.configuration["allow-headers"].join(","), @response.headers["Access-Control-Allow-Headers"], @response.headers.inspect
+        end
+
+        should "set Access-Control-Max-Age header" do
+          assert_equal Charcoal.configuration["max-age"], @response.headers["Access-Control-Max-Age"], @response.headers.inspect
         end
 
         should "render text/plain response" do

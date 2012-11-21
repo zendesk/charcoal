@@ -31,7 +31,6 @@ class TestCorsControllerTest < ActionController::TestCase
       {
         "Access-Control-Allow-Origin" => "allow-origin",
         "Access-Control-Allow-Credentials" => "credentials",
-        "Access-Control-Expose-Headers" => "expose-headers"
       }.each do |header, key|
         context "CORS header -> #{header}" do
           setup do
@@ -51,10 +50,22 @@ class TestCorsControllerTest < ActionController::TestCase
       end
 
       context "without any other request method" do
-        setup { get :test_action }
+        setup do
+          @original, Charcoal.configuration["expose-headers"] = Charcoal.configuration["expose-headers"], %w{test 123}
+
+          get :test_action
+        end
+
+        teardown do
+          Charcoal.configuration["expose-headers"] = @original
+        end
 
         should "render action" do
           assert_equal "noop", @response.body
+        end
+
+        should "set Access-Control-Expose-Headers" do
+          assert_equal "test,123", @response.headers["Access-Control-Expose-Headers"], @response.headers.inspect
         end
       end
     end
