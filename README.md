@@ -1,6 +1,23 @@
 # charcoal
 
-Description goes here.
+JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 2 and above.
+
+## Usage
+
+### JSONP
+
+Include the module `Charcoal::JSONP` in the controller you'd like to allow JSONP.
+You may then use `allow_jsonp` class method with the following options:
+
+
+Requests that come in with a callback parameter (e.g. `http://test.com/users.json?callback=hello`)
+will have the response body wrapped in that callback and the content type changed to `application/javascript`
+
+### CORS
+
+Include the module `Charcoal::CORS` in the controller you'd like to allow CORS.
+Preflight controller...
+
 
 ## Contributing to charcoal
 
