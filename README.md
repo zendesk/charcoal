@@ -7,7 +7,7 @@ JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration 
 ### JSONP
 
 Include the module `Charcoal::JSONP` in the controller you'd like to allow JSONP.
-You may then use `allow\_jsonp` class method with the following options:
+You may then use `allow_jsonp` class method with the following options:
 
 ```ruby
 # directive is a method (symbol) or block (taking one argument, the controller instance)
@@ -21,10 +21,10 @@ will have the response body wrapped in that callback and the content type change
 
 ### CORS
 
-Please familiarize yourself with the [documentation](https://developer.mozilla.org/En/HTTP_access_control) ([wiki](https://en.wikipedia.org/CORS)) before proceeding.
+Please familiarize yourself with the [documentation](https://developer.mozilla.org/En/HTTP_access_control) ([wikipedia](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) before proceeding.
 
 Include the module `Charcoal::CORS` in the controller you'd like to allow CORS.
-`allow\_cors` accepts the same arguments as `allow\_jsonp`
+`allow_cors` accepts the same arguments as `allow_jsonp`
 
 Included is a CORS pre-flight controller that must be hooked up to the Rails router:
 
