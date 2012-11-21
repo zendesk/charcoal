@@ -26,8 +26,8 @@ module Charcoal
     protected
 
     def set_cors_headers
-      headers["Access-Control-Allow-Origin"] = Charcoal.configuration["allow-origin"]
-      headers["Access-Control-Allow-Credentials"] = Charcoal.configuration["credentials"]
+      headers["Access-Control-Allow-Origin"] = Charcoal.configuration["allow-origin"].to_s
+      headers["Access-Control-Allow-Credentials"] = Charcoal.configuration["credentials"].to_s
       headers["Access-Control-Expose-Headers"] = Charcoal.configuration["expose-headers"].join(",")
     end
   end

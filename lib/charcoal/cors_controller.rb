@@ -4,6 +4,8 @@
 require 'action_controller'
 require 'active_support/version'
 
+require 'charcoal/cors_helper'
+
 class Charcoal::CORSController < (defined?(ApplicationController) ? ApplicationController : ActionController::Base)
   include Charcoal::CORS
 
@@ -23,7 +25,7 @@ class Charcoal::CORSController < (defined?(ApplicationController) ? ApplicationC
 
     set_cors_headers
     headers["Access-Control-Allow-Methods"] = allowed_methods.join(",").upcase
-    headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"]
+    headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"].to_s
     headers['Access-Control-Allow-Headers'] = Charcoal.configuration["allow-headers"].join(",")
 
     head :ok, :content_type => "text/plain"

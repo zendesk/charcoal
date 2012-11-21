@@ -4,7 +4,7 @@ module Charcoal
       "credentials" => true,
       "expose-headers" => %w{},
       "allow-headers" => %w{X-Requested-With X-Prototype-Version},
-      "max-age" => "86400",
+      "max-age" => 86400,
       "allow-origin" => "*"
     }
   end
@@ -14,7 +14,6 @@ module Charcoal
   autoload :JSONP, 'charcoal/jsonp'
 
   autoload :CORSController, 'charcoal/cors_controller'
-  autoload :CorsHelper, 'charcoal/cors_helper'
   # autoload :ParameterWhitelist, "charcoal/parameter_whitelist"
 end
 
