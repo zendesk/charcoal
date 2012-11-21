@@ -14,7 +14,7 @@ You may then use `allow_jsonp` class method with the following options:
 allow_jsonp method [method2 ...], :if => directive, :unless => directive
 ```
 
-`:all` is also a valid argument that applies to all methods. The default (with no arguments) is the same as `all`.
+`:all` is also a valid argument that applies to all methods. The default (with no arguments) is the same as `:all`.
 
 Requests that come in with a callback parameter (e.g. `http://test.com/users.json?callback=hello`)
 will have the response body wrapped in that callback and the content type changed to `application/javascript`
@@ -59,6 +59,44 @@ The configuration options and defaults for CORS are as follows:
 "max-age" => 86400
 ```
 
+### Creating Your Own Filter
+
+It's possible to create your own controller filter like so:
+
+```ruby
+require 'charcoal/controller_filter'
+
+module MyFilter
+  def self.included(klass)
+    klass.extend(ClassMethods)
+    klass.before_filter :quack, :if => :animals_allowed?
+  end
+
+  module ClassMethods
+    include Charcoal::ControllerFilter
+
+    def animals_allowed
+      @animals_allowed ||= Hash.new(lambda {|_| false})
+    end
+
+    allow :animals do |method, directive|
+      animals_allowed[method] = directive
+    end
+  end
+
+  def animals_allowed?
+    self.class.animals_allowed[params[:action]].call(self)
+  end
+
+  protected
+
+  def quack
+    Rails.logger.info("QUACK!")
+  end
+end
+```
+
+This example adds the `allow_animals` directive that logs "QUACK!" if an applicable request is received.
 
 ## Contributing to charcoal
 
