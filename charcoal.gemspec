@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Davidovitz"]
-  s.date = "2012-11-20"
+  s.date = "2012-11-21"
   s.description = "Helps you support JSONP and CORS in your Rails app"
   s.email = "sdavidovitz@zendesk.com"
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "lib/charcoal/controller_filter.rb",
     "lib/charcoal/cors.rb",
     "lib/charcoal/cors_controller.rb",
+    "lib/charcoal/cors_helper.rb",
     "lib/charcoal/jsonp.rb",
     "lib/charcoal/version.rb",
     "test/cors_controller_test.rb",
