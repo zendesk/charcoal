@@ -22,9 +22,9 @@ class Charcoal::CORSController < (defined?(ApplicationController) ? ApplicationC
     end
 
     set_cors_headers
-    response.headers["Access-Control-Allow-Methods"] = allowed_methods.join(",").upcase
-    response.headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"]
-    response.headers['Access-Control-Allow-Headers'] = Charcoal.configuration["allow-headers"].join(",")
+    headers["Access-Control-Allow-Methods"] = allowed_methods.join(",").upcase
+    headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"]
+    headers['Access-Control-Allow-Headers'] = Charcoal.configuration["allow-headers"].join(",")
 
     head :ok, :content_type => "text/plain"
   end
