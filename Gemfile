@@ -5,7 +5,6 @@ gem "actionpack", ">= 2.3.5"
 
 gem "rake", :group => :development
 gem "yard", "~> 0.7", :group => :development
-gem "bundler", "~> 1.2.0", :group => :development
 gem "jeweler", "~> 1.8.4", :group => :development
 
 gem "rails", ">= 2.3.5", :group => :test
