@@ -98,6 +98,11 @@ end
 
 This example adds the `allow_animals` directive that logs "QUACK!" if an applicable request is received.
 
+## Supported Versions
+
+Tested with Ruby 1.8.7 and 1.9.3 and Rails 2.3, 3.1, and 3.2.
+[![Build Status](https://secure.travis-ci.org/steved555/charcoal.png?branch=master)](http://travis-ci.org/steved555/charcoal)
+
 ## Contributing to charcoal
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
