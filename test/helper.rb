@@ -11,6 +11,9 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
+require 'test/unit'
+require 'shoulda'
+require 'mocha/setup'
 require 'active_support/version'
 
 if ActiveSupport::VERSION::MAJOR >= 3
@@ -47,8 +50,5 @@ else
 
   ActionDispatch = ActionController
 end
-
-require 'test/unit'
-require 'shoulda'
 
 require 'charcoal'
