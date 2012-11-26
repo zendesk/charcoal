@@ -12,8 +12,12 @@ rescue Bundler::BundlerError => e
 end
 
 require 'test/unit'
-require 'shoulda'
 require 'mocha/setup'
+
+# https://github.com/freerange/mocha/issues/94
+Mocha::Integration::TestUnit::AssertionCounter = Mocha::Integration::AssertionCounter
+
+require 'shoulda'
 require 'active_support/version'
 
 if ActiveSupport::VERSION::MAJOR >= 3

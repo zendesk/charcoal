@@ -12,4 +12,4 @@ gem "rails", ">= 2.3.5", :group => :test
 gem "appraisal", ">= 0.5.0", :group => :test
 gem "shoulda", ">= 0", :group => :test
 gem "shoulda-context", ">= 0", :group => :test
-gem "mocha", :group => :test
+gem "mocha", :group => :test, :require => false

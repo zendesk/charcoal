@@ -38,7 +38,7 @@ GEM
     shoulda (3.0.1)
       shoulda-context (~> 1.0.0)
       shoulda-matchers (~> 1.0.0)
-    shoulda-context (1.0.0)
+    shoulda-context (1.0.1)
     shoulda-matchers (1.0.0)
     yard (0.8.3)
 
