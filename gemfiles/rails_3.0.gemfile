@@ -12,5 +12,5 @@ gem "appraisal", ">= 0.5.0", :group=>:test
 gem "shoulda", ">= 0", :group=>:test
 gem "shoulda-context", ">= 0", :group=>:test
 gem "mocha", :group=>:test, :require=>false
-gem "rails", "~> 2.3.0"
+gem "rails", "~> 3.0.0"
 
