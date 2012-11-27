@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "charcoal"
-  s.version = "0.1"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Davidovitz"]
-  s.date = "2012-11-26"
+  s.date = "2012-11-27"
   s.description = "Helps you support JSONP and CORS in your Rails app"
   s.email = "sdavidovitz@zendesk.com"
   s.extra_rdoc_files = [
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    ".travis.yml",
     "Appraisals",
     "Gemfile",
     "LICENSE",
