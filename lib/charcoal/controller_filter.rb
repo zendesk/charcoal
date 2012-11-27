@@ -6,7 +6,8 @@ module Charcoal
 
     module ClassMethods
       def allow(filter, &block)
-        define_method "allow_#{filter}" do |*args|
+        action = "allow_#{filter}"
+        define_method action do |*args|
           # If we don't need 1.8 compat then ->(options = {}) instead of *args and the next line
           options = args.last.is_a?(Hash) ? args.pop : {}
           options.assert_valid_keys(:only, :except, :if, :unless)
@@ -24,6 +25,8 @@ module Charcoal
             instance_exec(method, directive, &block)
           end
         end
+
+        hide_action action if respond_to?(:hide_action)
       end
     end
 
