@@ -49,10 +49,9 @@ DEPENDENCIES
   actionpack (>= 2.3.5)
   activesupport (>= 2.3.5)
   appraisal (>= 0.5.0)
-  bundler (~> 1.2.0)
   jeweler (~> 1.8.4)
   mocha
-  rails (~> 2.3.5)
+  rails (~> 2.3.0)
   rake
   shoulda
   shoulda-context
