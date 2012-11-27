@@ -24,11 +24,11 @@ module Charcoal
       end
     end
 
+    protected
+
     def cors_allowed?
       self.class.cors_allowed?(self, params[:action])
     end
-
-    protected
 
     def set_cors_headers
       headers["Access-Control-Allow-Origin"] = Charcoal.configuration["allow-origin"].to_s

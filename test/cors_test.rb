@@ -20,7 +20,7 @@ class TestCorsControllerTest < ActionController::TestCase
       end
 
       should "allow cors" do
-        assert subject.cors_allowed?
+        assert subject.send(:cors_allowed?)
       end
     end
 

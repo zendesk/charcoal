@@ -25,8 +25,6 @@ module Charcoal
             instance_exec(method, directive, &block)
           end
         end
-
-        hide_action action if respond_to?(:hide_action)
       end
     end
 

@@ -24,6 +24,8 @@ module Charcoal
       end
     end
 
+    protected
+
     def jsonp_allowed?
       self.class.jsonp_allowed?(self, params[:action])
     end
@@ -31,8 +33,6 @@ module Charcoal
     def jsonp_request?
       params[:callback].present? && jsonp_allowed?
     end
-
-    protected
 
     def add_jsonp_callback
       yield
