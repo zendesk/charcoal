@@ -30,7 +30,7 @@ Included is a CORS pre-flight controller that must be hooked up to the Rails rou
 
 Rails 2:
 ```ruby
-map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "CORS", :namespace => "charcoal"
+map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "CORS", :namespace => "charcoal/"
 ```
 
 Rails 3:
