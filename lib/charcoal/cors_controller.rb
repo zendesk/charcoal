@@ -9,6 +9,8 @@ require 'charcoal/cors_helper'
 class Charcoal::CORSController < ActionController::Base
   include Charcoal::CORS
 
+  allow_cors :all
+
   # OPTIONS *
   def preflight
     allowed_methods = ActionController::Routing::HTTP_METHODS.select do |verb|
@@ -27,7 +29,10 @@ class Charcoal::CORSController < ActionController::Base
 
           action = route[:action] || params[:path].last.split(".").first
 
-          controller.respond_to?(:cors_allowed) && controller.cors_allowed?(self, action)
+          instance = controller.new
+          instance.request = request
+
+          controller.respond_to?(:cors_allowed) && controller.cors_allowed?(instance, action)
         else
           false
         end
