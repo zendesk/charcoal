@@ -31,6 +31,7 @@ class Charcoal::CORSController < ActionController::Base
 
           instance = controller.new
           instance.request = request
+          instance.request = response
 
           controller.respond_to?(:cors_allowed) && controller.cors_allowed?(instance, action)
         else
