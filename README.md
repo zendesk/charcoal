@@ -44,7 +44,13 @@ The configuration options and defaults for CORS are as follows:
 
 ```ruby
 # Access-Control-Allow-Origin
-"allow-origin" => "*"
+Charcoal.configuration["allow-origin"] # => "*"
+# Can be set to a string
+Charcoal.configuration["allow-origin"] = "https://google.com"
+# Or a block
+Charcoal.configuration["allow-origin"] = lambda do |controller|
+  controller.request.host
+end
 
 # Access-Control-Allow-Headers
 "allow-headers" => ["X-Requested-With", "X-Prototype-Version"]
