@@ -43,11 +43,11 @@ Rake::TestTask.new(:test) do |test|
 end
 
 desc 'Test the plugin under all supported Rails versions.'
-task :all => ["appraisal:cleanup", "appraisal:install"] do
+task :all => ["appraisal:install"] do
   exec('rake appraisal test')
 end
 
-task :default => :test
+task :default => :all
 
 require 'yard'
 YARD::Rake::YardocTask.new
