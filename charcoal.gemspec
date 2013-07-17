@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "charcoal"
-  s.version = "0.1.6"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Steven Davidovitz"]
-  s.date = "2013-06-04"
+  s.date = "2013-07-17"
   s.description = "Helps you support JSONP and CORS in your Rails app"
   s.email = "sdavidovitz@zendesk.com"
   s.extra_rdoc_files = [
