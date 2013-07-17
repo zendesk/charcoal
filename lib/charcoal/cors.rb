@@ -31,9 +31,14 @@ module Charcoal
     end
 
     def set_cors_headers
-      headers["Access-Control-Allow-Origin"] = Charcoal.configuration["allow-origin"].to_s
+      headers["Access-Control-Allow-Origin"] = allowed_origin
       headers["Access-Control-Allow-Credentials"] = Charcoal.configuration["credentials"].to_s
       headers["Access-Control-Expose-Headers"] = Charcoal.configuration["expose-headers"].join(",")
+    end
+
+    def allowed_origin
+      value = Charcoal.configuration["allow-origin"]
+      value.respond_to?(:call) ? value.call(self) : value.to_s
     end
   end
 end

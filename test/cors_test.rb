@@ -46,6 +46,26 @@ class TestCorsControllerTest < ActionController::TestCase
         end
       end
 
+      context "when Allow-Origin is a block" do
+        setup do
+          block = lambda do |controller|
+            controller.class.name
+          end
+
+          @original, Charcoal.configuration["allow-origin"] = Charcoal.configuration["allow-origin"], block
+
+          get :test_action
+        end
+
+        teardown do
+          Charcoal.configuration["allow-origin"] = @original
+        end
+
+        should "be the same as the configuration" do
+          assert_equal "TestCorsController", @response.headers["Access-Control-Allow-Origin"], @response.headers.inspect
+        end
+      end
+
       context "without any other request method" do
         setup do
           @original, Charcoal.configuration["expose-headers"] = Charcoal.configuration["expose-headers"], %w{test 123}
