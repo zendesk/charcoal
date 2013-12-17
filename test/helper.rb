@@ -33,6 +33,7 @@ if ActiveSupport::VERSION::MAJOR >= 3
 
   TestApp.routes.draw do
     match '/test' => "test#test", :via => [:get, :put]
+    match "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "C_O_R_S", :namespace => "charcoal/"
     match ':controller/:action'
   end
 
@@ -49,6 +50,7 @@ else
 
   ActionController::Routing::Routes.draw do |map|
     map.connect '/test', :controller => :test, :action => :test, :conditions => { :method => [:get, :put] }
+    map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "CORS", :namespace => "charcoal/"
     map.connect ':controller/:action'
   end
 

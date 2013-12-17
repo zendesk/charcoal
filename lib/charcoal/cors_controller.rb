@@ -13,7 +13,22 @@ class Charcoal::CORSController < ActionController::Base
 
   # OPTIONS *
   def preflight
-    allowed_methods = ActionController::Routing::HTTP_METHODS.select do |verb|
+    if allowed_methods.any?
+      set_cors_headers
+      headers["Access-Control-Allow-Methods"] = allowed_methods.join(",").upcase
+      headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"].to_s
+      headers['Access-Control-Allow-Headers'] = Charcoal.configuration["allow-headers"].join(",")
+    end
+
+    head :ok, :content_type => "text/plain"
+  end
+
+  private
+
+  def allowed_methods
+    @allowed_methods ||= ActionController::Routing::HTTP_METHODS.select do |verb|
+      next if verb == :options
+
       begin
         route = if ActiveSupport::VERSION::MAJOR >= 3
           Rails.application.routes.recognize_path(request.path, request.env.merge(:method => verb))
@@ -41,14 +56,5 @@ class Charcoal::CORSController < ActionController::Base
         false
       end
     end
-
-    if allowed_methods.any?
-      set_cors_headers
-      headers["Access-Control-Allow-Methods"] = allowed_methods.join(",").upcase
-      headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"].to_s
-      headers['Access-Control-Allow-Headers'] = Charcoal.configuration["allow-headers"].join(",")
-    end
-
-    head :ok, :content_type => "text/plain"
   end
 end
