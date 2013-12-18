@@ -5,6 +5,7 @@ gemfile:
   - gemfiles/rails_2.3.gemfile
   - gemfiles/rails_3.2.gemfile
 cache: bundler
+script: "bundle exec rake test"
 matrix:
   exclude:
     - rvm: 2.0.0
