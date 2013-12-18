@@ -95,6 +95,7 @@ DEPENDENCIES
   actionpack (>= 2.3.5)
   activesupport (>= 2.3.5)
   appraisal (>= 0.5.0)
+  bundler
   jeweler (~> 1.8.4)
   mocha
   rails (~> 3.0.0)
