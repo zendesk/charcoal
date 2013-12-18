@@ -1,8 +1,11 @@
 rvm:
-  - ree
-  - 1.9.2
   - 1.9.3
+  - 2.0.0
 gemfile:
   - gemfiles/rails_2.3.gemfile
-  - gemfiles/rails_3.1.gemfile
   - gemfiles/rails_3.2.gemfile
+cache: bundler
+matrix:
+  exclude:
+    - rvm: 2.0.0
+      gemfile: gemfiles/rails_2.3.gemfile
