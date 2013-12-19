@@ -1,5 +1,7 @@
-["2.3", "3.2"].each do |version|
-  appraise "rails-#{version}" do
-    gem "rails", "~> #{version}.0"
-  end
+appraise "rails-2.3" do
+  gem "rails", "~> 2.3.0"
+end
+
+appraise "rails-3.2" do
+  gem "rails", "~> 3.2.0"
 end
