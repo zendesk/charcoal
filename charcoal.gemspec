@@ -55,14 +55,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<actionpack>, [">= 2.3.5"])
       s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<yard>, ["~> 0.7"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 2.3.5"])
       s.add_dependency(%q<actionpack>, [">= 2.3.5"])
       s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<yard>, ["~> 0.7"])
-      s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
     s.add_dependency(%q<bundler>, [">= 0"])
@@ -70,7 +70,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<actionpack>, [">= 2.3.5"])
     s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<yard>, ["~> 0.7"])
-    s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
   end
 end
 
