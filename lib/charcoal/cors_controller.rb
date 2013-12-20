@@ -29,32 +29,39 @@ class Charcoal::CORSController < ActionController::Base
     @allowed_methods ||= ActionController::Routing::HTTP_METHODS.select do |verb|
       next if verb == :options
 
-      begin
-        route = if ActiveSupport::VERSION::MAJOR >= 3
-          Rails.application.routes.recognize_path(request.path, request.env.merge(:method => verb))
-        else
-          ActionController::Routing::Routes.routes.find {|r| r.recognize(request.path, request.env.merge(:method => verb))}
-        end
+      route = find_route(request.path, request.env.merge(:method => verb))
 
-        if route
-          route = route.requirements if ActiveSupport::VERSION::MAJOR < 3
+      if route
+        controller = route[:controller].camelize
+        controller = "#{controller}Controller".constantize
 
-          controller = route[:controller].camelize
-          controller = "#{controller}Controller".constantize
+        action = route[:action] || params[:path].last.split(".").first
 
-          action = route[:action] || params[:path].last.split(".").first
+        instance = controller.new
+        instance.request = request
+        instance.response = response
 
-          instance = controller.new
-          instance.request = request
-          instance.response = response
-
-          controller.respond_to?(:cors_allowed) && controller.cors_allowed?(instance, action)
-        else
-          false
-        end
-      rescue ActionController::RoutingError
+        controller.respond_to?(:cors_allowed) && controller.cors_allowed?(instance, action)
+      else
         false
       end
     end
+  end
+
+  def find_route(path, env)
+    if ActiveSupport::VERSION::MAJOR >= 3
+      [Rails.application.routes, *Rails.application.railties.engines.map(&:routes)].each do |route_set|
+        begin
+          return route_set.recognize_path(path, env)
+        rescue ActionController::RoutingError
+        end
+      end
+
+      nil
+    else
+      ActionController::Routing::Routes.routes.find {|r| r.recognize(path, env)}.try(:requirements)
+    end
+  rescue ActionController::RoutingError
+    nil
   end
 end
