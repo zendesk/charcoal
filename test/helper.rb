@@ -29,11 +29,19 @@ if ActiveSupport::VERSION::MAJOR >= 3
     config.logger = Logger.new(RUBY_PLATFORM =~ /(mingw|bccwin|wince|mswin32)/i ? 'NUL:' : '/dev/null')
   end
 
+  class TestEngine < Rails::Engine
+  end
+
   TestApp.initialize!
 
+  TestEngine.routes.draw do
+    match '/engine/abc/test' => "engine#test", :via => :post
+  end
+
   TestApp.routes.draw do
+    mount TestEngine => ''
     match '/test' => "test#test", :via => [:get, :put]
-    match "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "C_O_R_S", :namespace => "charcoal/"
+    match '*path.:format' => 'charcoal/C_O_R_S#preflight', :via => :options
     match ':controller/:action'
   end
 
