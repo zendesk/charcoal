@@ -28,6 +28,10 @@ class Charcoal::CORSControllerTest < ActionController::TestCase
         get :preflight
       end
 
+      should "not set allow-origin" do
+        assert_nil @response.headers["Access-Control-Allow-Origin"], @response.headers.inspect
+      end
+
       should "allow proper methods" do
         assert_nil @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
       end

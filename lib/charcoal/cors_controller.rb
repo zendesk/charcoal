@@ -10,6 +10,7 @@ class Charcoal::CORSController < ActionController::Base
   include Charcoal::CORS
 
   allow_cors :all
+  skip_after_filter :set_cors_headers
 
   # OPTIONS *
   def preflight
