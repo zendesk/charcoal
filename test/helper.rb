@@ -11,7 +11,7 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-require 'test/unit'
+require 'minitest/autorun'
 require 'mocha/setup'
 
 # https://github.com/freerange/mocha/issues/94
@@ -26,6 +26,8 @@ if ActiveSupport::VERSION::MAJOR >= 3
 
   class TestApp < Rails::Application
     config.active_support.deprecation = :stderr
+    config.eager_load = false
+    config.secret_key_base = "secret"
     config.logger = Logger.new(RUBY_PLATFORM =~ /(mingw|bccwin|wince|mswin32)/i ? 'NUL:' : '/dev/null')
   end
 
@@ -41,8 +43,8 @@ if ActiveSupport::VERSION::MAJOR >= 3
   TestApp.routes.draw do
     mount TestEngine => ''
     match '/test' => "test#test", :via => [:get, :put]
-    match '*path.:format' => 'charcoal/C_O_R_S#preflight', :via => :options
-    match ':controller/:action'
+    match '*path.:format' => 'charcoal/cors#preflight', :via => :options
+    get ':controller/:action'
   end
 
   class ActionController::TestCase
@@ -63,6 +65,10 @@ else
   end
 
   ActionDispatch = ActionController
+end
+
+if ActiveSupport::VERSION::MAJOR >= 4
+  require "actionpack/action_caching"
 end
 
 require 'charcoal'
