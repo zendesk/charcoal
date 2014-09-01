@@ -27,7 +27,7 @@ class Charcoal::CORSController < ActionController::Base
   private
 
   def allowed_methods
-    @allowed_methods ||= ActionController::Routing::HTTP_METHODS.select do |verb|
+    @allowed_methods ||= ActionDispatch::Routing::HTTP_METHODS.select do |verb|
       next if verb == :options
 
       route = find_route(request.path, request.env.merge(:method => verb))
@@ -51,7 +51,13 @@ class Charcoal::CORSController < ActionController::Base
 
   def find_route(path, env)
     if ActiveSupport::VERSION::MAJOR >= 3
-      [Rails.application.routes, *Rails.application.railties.engines.map(&:routes)].each do |route_set|
+      routes = [Rails.application.routes]
+
+      if Rails.application.railties.respond_to?(:engines)
+        routes += Rails.application.railties.engines.map(&:routes)
+      end
+
+      routes.each do |route_set|
         begin
           return route_set.recognize_path(path, env)
         rescue ActionController::RoutingError
