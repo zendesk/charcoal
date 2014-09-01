@@ -65,4 +65,8 @@ else
   ActionDispatch = ActionController
 end
 
+if ActiveSupport::VERSION::MAJOR >= 4
+  require "actionpack/action_caching"
+end
+
 require 'charcoal'
