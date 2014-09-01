@@ -7,7 +7,6 @@ gem "activesupport", ">= 2.3.5"
 gem "actionpack", ">= 2.3.5"
 gem "rake", :group=>:development
 gem "yard", "~> 0.7", :group=>:development
-gem "jeweler", :group=>:development
 gem "appraisal", ">= 0.5.0", :group=>:test
 gem "shoulda", "~> 3.0", :group=>:test
 gem "shoulda-context", :group=>:test

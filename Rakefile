@@ -11,28 +11,6 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
-
-require 'charcoal/version'
-
-require 'rake'
-require 'jeweler'
-
-Jeweler::Tasks.new do |gem|
-  # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "charcoal"
-  gem.version = Charcoal::VERSION
-  gem.homepage = "http://github.com/steved555/charcoal"
-  gem.license = "MIT"
-  gem.summary = %Q{Cross-Origin helper for Rails}
-  gem.description = %Q{Helps you support JSONP and CORS in your Rails app}
-  gem.email = "sdavidovitz@zendesk.com"
-  gem.authors = ["Steven Davidovitz"]
-  # dependencies defined in Gemfile
-end
-Jeweler::RubygemsDotOrgTasks.new
-
 require 'appraisal'
 
 require 'rake/testtask'
