@@ -53,7 +53,7 @@ class Charcoal::CORSController < ActionController::Base
     if ActiveSupport::VERSION::MAJOR >= 3
       routes = [Rails.application.routes]
 
-      routes += Rails.application.railties.select {|tie|
+      routes += Rails.application.railties._all.select {|tie|
         tie.is_a?(Rails::Engine)
       }.map(&:routes)
 

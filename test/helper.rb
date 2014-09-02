@@ -36,7 +36,7 @@ if ActiveSupport::VERSION::MAJOR >= 3
   TestApp.routes.draw do
     mount TestEngine => ''
     match '/test' => "test#test", :via => [:get, :put]
-    match '*path.:format' => 'charcoal/C_O_R_S#preflight', :via => :options
+    match '*path.:format' => 'charcoal/cors#preflight', :via => :options
     get ':controller/:action'
   end
 
