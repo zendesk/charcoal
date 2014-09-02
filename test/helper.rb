@@ -11,6 +11,8 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
+require 'byebug' rescue LoadError nil
+
 require 'minitest/autorun'
 require 'mocha/setup'
 
