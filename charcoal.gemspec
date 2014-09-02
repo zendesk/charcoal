@@ -1,4 +1,6 @@
-require_relative 'lib/charcoal/version'
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+require 'charcoal/version'
 
 Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.authors = ["Steven Davidovitz"]
