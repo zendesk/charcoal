@@ -56,8 +56,6 @@ else
     map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "CORS", :namespace => "charcoal/"
     map.connect ':controller/:action'
   end
-
-  ActionDispatch = ActionController
 end
 
 if ActiveSupport::VERSION::MAJOR >= 4

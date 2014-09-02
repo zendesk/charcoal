@@ -1,13 +1,11 @@
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
-require 'charcoal/version'
+require './lib/charcoal/version'
 
 Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.authors = ["Steven Davidovitz"]
   s.description = "Helps you support JSONP and CORS in your Rails app"
   s.summary = "Cross-Origin helper for Rails"
   s.email = "sdavidovitz@zendesk.com"
-  s.homepage = "http://github.com/steved555/charcoal"
+  s.homepage = "https://github.com/steved555/charcoal"
 
   s.extra_rdoc_files = [
     "LICENSE",

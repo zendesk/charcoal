@@ -9,6 +9,8 @@ require 'charcoal/cors_helper'
 class Charcoal::CORSController < ActionController::Base
   include Charcoal::CORS
 
+  Routing = defined?(ActionDispatch) ? ActionDispatch::Routing : ActionController::Routing
+
   allow_cors :all
   skip_after_filter :set_cors_headers
 
@@ -27,7 +29,7 @@ class Charcoal::CORSController < ActionController::Base
   private
 
   def allowed_methods
-    @allowed_methods ||= ActionDispatch::Routing::HTTP_METHODS.select do |verb|
+    @allowed_methods ||= Routing::HTTP_METHODS.select do |verb|
       next if verb == :options
 
       route = find_route(request.path, request.env.merge(:method => verb))
@@ -53,9 +55,9 @@ class Charcoal::CORSController < ActionController::Base
     if ActiveSupport::VERSION::MAJOR >= 3
       routes = [Rails.application.routes]
 
-      routes += Rails.application.railties._all.select {|tie|
-        tie.is_a?(Rails::Engine)
-      }.map(&:routes)
+      railties = Rails.application.railties
+      railties = railties.respond_to?(:all) ? railties.all : railties._all
+      routes += railties.select {|tie| tie.is_a?(Rails::Engine)}.map(&:routes)
 
       routes.each do |route_set|
         begin
