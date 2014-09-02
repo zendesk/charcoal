@@ -1,4 +1,6 @@
-require_relative 'lib/charcoal/version'
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+require 'charcoal/version'
 
 Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.authors = ["Steven Davidovitz"]
@@ -17,7 +19,6 @@ Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'bundler'
   s.add_runtime_dependency 'activesupport', '>= 2.3.5', '< 5'
   s.add_runtime_dependency 'actionpack', '>= 2.3.5', '< 5'
 end

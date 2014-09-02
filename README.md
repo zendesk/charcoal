@@ -33,9 +33,9 @@ Rails 2:
 map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "CORS", :namespace => "charcoal/"
 ```
 
-Rails 3:
+Rails 3 / 4:
 ```ruby
-match '*path' => 'charcoal/C_O_R_S#preflight', :via => :options
+match '*path.:format' => 'charcoal/C_O_R_S#preflight', :via => :options
 ```
 
 #### Configuration
