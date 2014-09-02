@@ -68,7 +68,7 @@ class JSONPTest < ActionController::TestCase
         @response = '{"test": 123}'
         @content_type = "application/json"
 
-        subject.response = (defined?(ActionDispatch) ? ActionDispatch::ActionController)::Response.new
+        subject.response = (defined?(ActionDispatch) ? ActionDispatch : ActionController)::Response.new
         subject.response.body = @response
         subject.response.status = '200 OK'
         subject.response.content_type = @content_type
