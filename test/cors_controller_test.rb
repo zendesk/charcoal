@@ -46,7 +46,7 @@ class Charcoal::CORSControllerTest < ActionController::TestCase
 
         should "allow proper methods" do
           allowed = ["GET", "PUT"]
-          allowed.insert(1, "HEAD") if ActiveSupport::VERSION::MAJOR >= 4 && ActiveSupport::VERSION::MINOR >= 1
+          allowed.insert(1, "HEAD") if ActiveSupport::VERSION::MAJOR >= 4
           assert_equal allowed.join(','), @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
         end
 
