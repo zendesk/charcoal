@@ -53,9 +53,9 @@ class Charcoal::CORSController < ActionController::Base
     if ActiveSupport::VERSION::MAJOR >= 3
       routes = [Rails.application.routes]
 
-      routes += Rails.application.railties._all.select {|tie|
-        tie.is_a?(Rails::Engine)
-      }.map(&:routes)
+      railties = Rails.application.railties
+      railties = railties.respond_to?(:all) ? railties.all : railties._all
+      routes += railties.select {|tie| tie.is_a?(Rails::Engine)}.map(&:routes)
 
       routes.each do |route_set|
         begin
