@@ -1,23 +1,14 @@
-require 'rubygems'
-require 'bundler'
+require 'bundler/setup'
 
 ENV["RAILS_ENV"] = "test"
 
 begin
-  Bundler.setup(:default, :development, :test)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
+  require 'byebug'
+rescue LoadError
 end
-
-require 'byebug' rescue LoadError nil
 
 require 'minitest/autorun'
 require 'mocha/setup'
-
-# https://github.com/freerange/mocha/issues/94
-Mocha::Integration::TestUnit::AssertionCounter = Mocha::Integration::AssertionCounter
 
 require 'shoulda'
 require 'active_support/version'
