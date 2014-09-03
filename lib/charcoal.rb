@@ -10,10 +10,9 @@ module Charcoal
   end
 
   autoload :ControllerFilter, 'charcoal/controller_filter'
-  autoload :CORS, 'charcoal/cors'
+  autoload :CrossOrigin, 'charcoal/cross_origin'
   autoload :JSONP, 'charcoal/jsonp'
 
-  autoload :CORSController, 'charcoal/cors_controller'
-  # autoload :ParameterWhitelist, "charcoal/parameter_whitelist"
+  autoload :CrossOriginController, 'charcoal/cross_origin_controller'
 end
 

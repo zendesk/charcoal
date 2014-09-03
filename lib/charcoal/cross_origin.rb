@@ -1,7 +1,7 @@
 require 'charcoal/controller_filter'
 
 module Charcoal
-  module CORS
+  module CrossOrigin
     def self.included(klass)
       klass.extend(ClassMethods)
       klass.after_filter :set_cors_headers, :if => :cors_allowed?

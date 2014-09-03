@@ -23,19 +23,19 @@ will have the response body wrapped in that callback and the content type change
 
 Please familiarize yourself with the [documentation](https://developer.mozilla.org/En/HTTP_access_control) ([wikipedia](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) before proceeding.
 
-Include the module `Charcoal::CORS` in the controller you'd like to allow CORS.
+Include the module `Charcoal::CrossOrigin` in the controller you'd like to allow CORS.
 `allow_cors` accepts the same arguments as `allow_jsonp`
 
 Included is a CORS pre-flight controller that must be hooked up to the Rails router:
 
 Rails 2:
 ```ruby
-map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "CORS", :namespace => "charcoal/"
+map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "cross_origin", :namespace => "charcoal/"
 ```
 
 Rails 3 / 4:
 ```ruby
-match '*path.:format' => 'charcoal/cors#preflight', :via => :options
+match '*path.:format' => 'charcoal/cross_origin#preflight', :via => :options
 ```
 
 #### Configuration
