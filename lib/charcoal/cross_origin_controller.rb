@@ -4,10 +4,8 @@
 require 'action_controller'
 require 'active_support/version'
 
-require 'charcoal/cors_helper'
-
-class Charcoal::CORSController < ActionController::Base
-  include Charcoal::CORS
+class Charcoal::CrossOriginController < ActionController::Base
+  include Charcoal::CrossOrigin
 
   Routing = defined?(ActionDispatch) ? ActionDispatch::Routing : ActionController::Routing
 

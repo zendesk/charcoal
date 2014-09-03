@@ -1,7 +1,7 @@
 require File.expand_path("helper", File.dirname(__FILE__))
 
 class TestController < ActionController::Base
-  include Charcoal::CORS
+  include Charcoal::CrossOrigin
   allow_cors :test
 
   # GET, PUT
@@ -9,15 +9,15 @@ class TestController < ActionController::Base
 end
 
 class EngineController < ActionController::Base
-  include Charcoal::CORS
+  include Charcoal::CrossOrigin
   allow_cors :test
 
   # POST
   def test; end
 end
 
-class Charcoal::CORSControllerTest < ActionController::TestCase
-  context Charcoal::CORSController do
+class Charcoal::CrossOriginControllerTest < ActionController::TestCase
+  context Charcoal::CrossOriginController do
     setup do
       @request.env["HTTPS"] = "on"
     end

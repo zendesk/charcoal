@@ -1,7 +1,7 @@
 require File.expand_path('helper', File.dirname(__FILE__))
 
 class TestCorsController < ActionController::Base
-  include Charcoal::CORS
+  include Charcoal::CrossOrigin
 
   allow_cors :test_action
 
