@@ -1,0 +1,4 @@
+eval_gemfile 'gemfiles/common.rb'
+
+gem 'rails', '~> 3.2.21'
+gem 'test-unit-minitest'
