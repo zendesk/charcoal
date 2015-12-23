@@ -5,17 +5,11 @@ Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.description = "Helps you support JSONP and CORS in your Rails app"
   s.summary = "Cross-Origin helper for Rails"
   s.email = "sdavidovitz@zendesk.com"
-  s.homepage = "https://github.com/steved555/charcoal"
+  s.homepage = "https://github.com/steved/charcoal"
 
-  s.extra_rdoc_files = [
-    "LICENSE",
-    "README.md"
-  ]
+  s.files = Dir.glob('{lib,config,app}/**/*')
 
-  s.files = `git ls-files config lib app`.split("\n")
-
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
+  s.licenses = ['MIT']
 
   s.add_runtime_dependency 'activesupport', '>= 3.2.21', '< 5'
   s.add_runtime_dependency 'actionpack', '>= 3.2.21', '< 5'
