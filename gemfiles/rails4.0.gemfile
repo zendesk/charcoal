@@ -1,0 +1,4 @@
+eval_gemfile 'gemfiles/common.rb'
+
+gem 'rails', '~> 4.0.13'
+gem 'actionpack-action_caching'

@@ -50,24 +50,20 @@ class Charcoal::CrossOriginController < ActionController::Base
   end
 
   def find_route(path, env)
-    if ActiveSupport::VERSION::MAJOR >= 3
-      routes = [Rails.application.routes]
+    routes = [Rails.application.routes]
 
-      railties = Rails.application.railties
-      railties = railties.respond_to?(:all) ? railties.all : railties._all
-      routes += railties.select {|tie| tie.is_a?(Rails::Engine)}.map(&:routes)
+    railties = Rails.application.railties
+    railties = railties.respond_to?(:all) ? railties.all : railties._all
+    routes += railties.select {|tie| tie.is_a?(Rails::Engine)}.map(&:routes)
 
-      routes.each do |route_set|
-        begin
-          return route_set.recognize_path(path, env)
-        rescue ActionController::RoutingError
-        end
+    routes.each do |route_set|
+      begin
+        return route_set.recognize_path(path, env)
+      rescue ActionController::RoutingError
       end
-
-      nil
-    else
-      ActionController::Routing::Routes.routes.find {|r| r.recognize(path, env)}.try(:requirements)
     end
+
+    nil
   rescue ActionController::RoutingError
     nil
   end

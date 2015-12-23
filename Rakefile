@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'bundler/gem_tasks'
-require 'appraisal'
+require 'wwtd/tasks'
+require 'bump/tasks'
 require 'rake/testtask'
 
 Rake::TestTask.new(:test) do |test|
@@ -9,12 +10,7 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-desc 'Test the plugin under all supported Rails versions.'
-task :all do
-  exec('appraisal install && appraisal rake test')
-end
-
-task :default => :all
+task :default => 'wwtd:local'
 
 require 'yard'
 YARD::Rake::YardocTask.new
