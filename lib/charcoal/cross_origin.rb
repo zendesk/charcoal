@@ -4,7 +4,7 @@ module Charcoal
   module CrossOrigin
     def self.included(klass)
       klass.extend(ClassMethods)
-      klass.after_filter :set_cors_headers, :if => :cors_allowed?
+      klass.around_filter :set_cors_headers_filter, :if => :cors_allowed?
     end
 
     module ClassMethods
@@ -28,6 +28,14 @@ module Charcoal
 
     def cors_allowed?
       self.class.cors_allowed?(self, params[:action])
+    end
+
+    def set_cors_headers_filter
+      yield
+      set_cors_headers
+    rescue
+      set_cors_headers
+      raise
     end
 
     def set_cors_headers
