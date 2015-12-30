@@ -32,10 +32,8 @@ module Charcoal
 
     def set_cors_headers_filter
       yield
+    ensure
       set_cors_headers
-    rescue
-      set_cors_headers
-      raise
     end
 
     def set_cors_headers
