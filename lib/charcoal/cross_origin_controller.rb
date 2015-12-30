@@ -10,7 +10,7 @@ class Charcoal::CrossOriginController < ActionController::Base
   Routing = defined?(ActionDispatch) ? ActionDispatch::Routing : ActionController::Routing
 
   allow_cors :all
-  skip_after_filter :set_cors_headers
+  skip_around_filter :set_cors_headers_filter
 
   # OPTIONS *
   def preflight

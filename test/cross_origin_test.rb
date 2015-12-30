@@ -3,10 +3,20 @@ require File.expand_path('helper', File.dirname(__FILE__))
 class TestCorsController < ActionController::Base
   include Charcoal::CrossOrigin
 
-  allow_cors :test_action
+  allow_cors :test_action, :test_error_action
+
+  class TestError < StandardError; end
+
+  rescue_from TestError do |e|
+    head :forbidden
+  end
 
   def test_action
     render :text => "noop"
+  end
+
+  def test_error_action
+    raise TestError.new
   end
 end
 
@@ -34,6 +44,22 @@ class TestCorsControllerTest < ActionController::TestCase
             @original, Charcoal.configuration[key] = Charcoal.configuration[key], "test"
 
             get :test_action
+          end
+
+          teardown do
+            Charcoal.configuration[key] = @original
+          end
+
+          should "be the same as the configuration" do
+            assert_equal "test", @response.headers[header], @response.headers.inspect
+          end
+        end
+
+        context "CORS header -> #{header} with error response" do
+          setup do
+            @original, Charcoal.configuration[key] = Charcoal.configuration[key], "test"
+
+            get :test_error_action
           end
 
           teardown do
