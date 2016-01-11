@@ -12,7 +12,8 @@ class TestCorsController < ActionController::Base
   end
 
   def test_action
-    render :text => "noop"
+
+    render (::Rails::VERSION::MAJOR < 5 ? :text : :plain) => "noop"
   end
 
   def test_error_action

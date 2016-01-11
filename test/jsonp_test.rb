@@ -28,7 +28,11 @@ class JSONPTest < ActionController::TestCase
 
       context "a GET to :test" do
         setup do
-          get :test, :callback => "hello"
+          if Rails::VERSION::MAJOR < 5
+            get :test, :callback => "hello"
+          else
+            get :test, :params => { :callback => "hello" }
+          end
         end
 
         should "return a proper response" do

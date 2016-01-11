@@ -4,7 +4,11 @@ module Charcoal
   module JSONP
     def self.included(klass)
       klass.extend(ClassMethods)
-      klass.prepend_around_filter :add_jsonp_callback
+      if klass.respond_to?(:prepend_around_action)
+        klass.prepend_around_action :add_jsonp_callback
+      else
+        klass.prepend_around_filter :add_jsonp_callback
+      end
     end
 
     module ClassMethods
