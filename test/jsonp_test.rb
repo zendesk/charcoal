@@ -12,6 +12,14 @@ class JSONPControllerTester < ActionController::Base
 end
 
 class JSONPTest < ActionController::TestCase
+  def change_params(change)
+    if Rails::VERSION::MAJOR < 5
+      subject.params.replace(change)
+    else
+      subject.params = subject.params.to_unsafe_h.merge(change)
+    end
+  end
+
   tests JSONPControllerTester
 
   context JSONPControllerTester do
@@ -80,7 +88,7 @@ class JSONPTest < ActionController::TestCase
 
       context "with params" do
         setup do
-          subject.params.replace(:callback => "callback", :action => "test")
+          change_params(:callback => "callback", :action => "test")
           subject.send(:add_jsonp_callback) {}
         end
 
