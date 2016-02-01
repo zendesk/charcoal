@@ -42,8 +42,8 @@ module Charcoal
       yield
 
       if response.status.to_s.starts_with?('200') && jsonp_request?
-        response.body = "#{params[:callback]}(#{response.body})"
         response.content_type = "application/javascript"
+        response.body = "#{params[:callback]}(#{response.body})"
       end
     end
   end
