@@ -53,7 +53,11 @@ class JSONPTest < ActionController::TestCase
 
         context "a second call" do
           setup do
-            get :test, :callback => "hello"
+            if Rails::VERSION::MAJOR < 5
+              get :test, :callback => "hello"
+            else
+              get :test, :params => { :callback => "hello" }
+            end
           end
 
           should "properly cache the response" do
