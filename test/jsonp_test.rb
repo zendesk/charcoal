@@ -3,7 +3,7 @@ require File.expand_path('helper', File.dirname(__FILE__))
 class JSONPControllerTester < ActionController::Base
   include Charcoal::JSONP
 
-  caches_action :test
+  caches_action :test if Rails::VERSION::MAJOR < 5
   allow_jsonp :test
 
   def test

@@ -46,7 +46,7 @@ class ActionController::TestCase
   end
 end
 
-if ActiveSupport::VERSION::MAJOR >= 4
+if ActiveSupport::VERSION::MAJOR == 4
   require "actionpack/action_caching"
 end
 

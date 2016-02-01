@@ -1,4 +1,3 @@
 eval_gemfile 'gemfiles/common.rb'
 
 gem 'rails', github: 'rails', ref: '407baa2b'
-gem 'actionpack-action_caching'
