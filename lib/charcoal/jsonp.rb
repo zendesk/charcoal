@@ -4,7 +4,11 @@ module Charcoal
   module JSONP
     def self.included(klass)
       klass.extend(ClassMethods)
-      klass.prepend_around_filter :add_jsonp_callback
+      if klass.respond_to?(:prepend_around_action)
+        klass.prepend_around_action :add_jsonp_callback
+      else
+        klass.prepend_around_filter :add_jsonp_callback
+      end
     end
 
     module ClassMethods
@@ -38,8 +42,8 @@ module Charcoal
       yield
 
       if response.status.to_s.starts_with?('200') && jsonp_request?
-        response.body = "#{params[:callback]}(#{response.body})"
         response.content_type = "application/javascript"
+        response.body = "#{params[:callback]}(#{response.body})"
       end
     end
   end

@@ -4,7 +4,11 @@ module Charcoal
   module CrossOrigin
     def self.included(klass)
       klass.extend(ClassMethods)
-      klass.around_filter :set_cors_headers_filter, :if => :cors_allowed?
+      if klass.respond_to?(:around_action)
+        klass.around_action :set_cors_headers_filter, :if => :cors_allowed?
+      else
+        klass.around_filter :set_cors_headers_filter, :if => :cors_allowed?
+      end
     end
 
     module ClassMethods

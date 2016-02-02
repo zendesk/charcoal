@@ -40,6 +40,16 @@ TestApp.routes.draw do
   get ':controller/:action'
 end
 
+class ActiveSupport::TestCase
+  def change_params(change)
+    if Rails::VERSION::MAJOR < 5
+      subject.params.replace(change)
+    else
+      subject.params = subject.params.to_unsafe_h.merge(change)
+    end
+  end
+end
+
 class ActionController::TestCase
   def setup
     @routes = TestApp.routes
@@ -47,7 +57,7 @@ class ActionController::TestCase
 end
 
 if ActiveSupport::VERSION::MAJOR >= 4
-  require "actionpack/action_caching"
+  require "action_controller/action_caching"
 end
 
 require 'charcoal'

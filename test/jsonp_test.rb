@@ -28,7 +28,11 @@ class JSONPTest < ActionController::TestCase
 
       context "a GET to :test" do
         setup do
-          get :test, :callback => "hello"
+          if Rails::VERSION::MAJOR < 5
+            get :test, :callback => "hello"
+          else
+            get :test, :params => { :callback => "hello" }
+          end
         end
 
         should "return a proper response" do
@@ -41,7 +45,11 @@ class JSONPTest < ActionController::TestCase
 
         context "a second call" do
           setup do
-            get :test, :callback => "hello"
+            if Rails::VERSION::MAJOR < 5
+              get :test, :callback => "hello"
+            else
+              get :test, :params => { :callback => "hello" }
+            end
           end
 
           should "properly cache the response" do
@@ -76,7 +84,7 @@ class JSONPTest < ActionController::TestCase
 
       context "with params" do
         setup do
-          subject.params.replace(:callback => "callback", :action => "test")
+          change_params(:callback => "callback", :action => "test")
           subject.send(:add_jsonp_callback) {}
         end
 

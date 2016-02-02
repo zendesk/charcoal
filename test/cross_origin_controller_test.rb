@@ -24,7 +24,7 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
 
     context "unrecognized path to #preflight" do
       setup do
-        @request.stubs(:path => "/my_unrecognized_path")
+        @request.path = "/my_unrecognized_path"
         get :preflight
       end
 
@@ -40,7 +40,7 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
     context "OPTIONS to #preflight" do
       context "with request method = OPTIONS" do
         setup do
-          @request.stubs(:path => "/test")
+          @request.path = "/test"
           get :preflight
         end
 
@@ -67,7 +67,7 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
 
     context "engine request path" do
       setup do
-        @request.stubs(:path => "/engine/abc/test")
+        @request.path = "/engine/abc/test"
         get :preflight
       end
 

@@ -43,7 +43,7 @@ class FiltersTest < ActiveSupport::TestCase
           setup { FiltersControllerTester.allow_filtering :test_action1, :if => lambda {|c| c.test_action1 } }
 
           should "should allow filtering for test_action1" do
-            subject.params.replace(:action => :test_action1)
+            change_params(:action => :test_action1)
             assert subject.filtering_allowed?
           end
         end
@@ -52,7 +52,7 @@ class FiltersTest < ActiveSupport::TestCase
           setup { FiltersControllerTester.allow_filtering :test_action1, :if => :test_action1 }
 
           should "should allow filtering for test_action1" do
-            subject.params.replace(:action => :test_action1)
+            change_params(:action => :test_action1)
             assert subject.filtering_allowed?
           end
         end
@@ -61,7 +61,7 @@ class FiltersTest < ActiveSupport::TestCase
           setup { FiltersControllerTester.allow_filtering :test_action1, :if => true }
 
           should "should allow filtering for test_action1" do
-            subject.params.replace(:action => :test_action1)
+            change_params(:action => :test_action1)
             assert subject.filtering_allowed?
           end
         end
@@ -72,7 +72,7 @@ class FiltersTest < ActiveSupport::TestCase
           setup { FiltersControllerTester.allow_filtering :test_action1, :unless => lambda {|c| c.test_action2 } }
 
           should "should allow filtering for test_action1" do
-            subject.params.replace(:action => :test_action1)
+            change_params(:action => :test_action1)
             assert subject.filtering_allowed?
           end
         end
@@ -81,7 +81,7 @@ class FiltersTest < ActiveSupport::TestCase
           setup { FiltersControllerTester.allow_filtering :test_action1, :unless => :test_action2 }
 
           should "should allow filtering for test_action1" do
-            subject.params.replace(:action => :test_action1)
+            change_params(:action => :test_action1)
             assert subject.filtering_allowed?
           end
         end
@@ -90,7 +90,7 @@ class FiltersTest < ActiveSupport::TestCase
           setup { FiltersControllerTester.allow_filtering :test_action1, :unless => false }
 
           should "should allow filtering for test_action1" do
-            subject.params.replace(:action => :test_action1)
+            change_params(:action => :test_action1)
             assert subject.filtering_allowed?
           end
         end
@@ -100,12 +100,12 @@ class FiltersTest < ActiveSupport::TestCase
         setup { FiltersControllerTester.allow_filtering :test_action1 }
 
         should "should allow filtering for test_action1" do
-          subject.params.replace(:action => :test_action1)
+          change_params(:action => :test_action1)
           assert subject.filtering_allowed?
         end
 
         should "should not allow filtering for test_action2" do
-          subject.params.replace(:action => :test_action2)
+          change_params(:action => :test_action2)
           assert !subject.filtering_allowed?
         end
       end
@@ -114,12 +114,12 @@ class FiltersTest < ActiveSupport::TestCase
         setup { FiltersControllerTester.allow_filtering }
 
         should "should allow filtering for test_action1" do
-          subject.params.replace(:action => :test_action1)
+          change_params(:action => :test_action1)
           assert subject.filtering_allowed?
         end
 
         should "should allow filtering for test_action2" do
-          subject.params.replace(:action => :test_action1)
+          change_params(:action => :test_action1)
           assert subject.filtering_allowed?
         end
       end
