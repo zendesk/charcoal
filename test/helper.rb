@@ -40,6 +40,16 @@ TestApp.routes.draw do
   get ':controller/:action'
 end
 
+class ActiveSupport::TestCase
+  def change_params(change)
+    if Rails::VERSION::MAJOR < 5
+      subject.params.replace(change)
+    else
+      subject.params = subject.params.to_unsafe_h.merge(change)
+    end
+  end
+end
+
 class ActionController::TestCase
   def setup
     @routes = TestApp.routes
