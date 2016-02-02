@@ -1,3 +1,3 @@
 eval_gemfile 'gemfiles/common.rb'
 
-gem 'rails', github: 'rails', ref: '407baa2b'
+gem 'rails', '~> 5.0.0.beta2'
