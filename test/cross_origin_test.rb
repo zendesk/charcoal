@@ -12,7 +12,7 @@ class TestCorsController < ActionController::Base
   end
 
   def test_action
-    render (::Rails::VERSION::MAJOR < 5 ? :text : :plain) => "noop"
+    head :ok
   end
 
   def test_error_action
@@ -104,7 +104,7 @@ class TestCorsControllerTest < ActionController::TestCase
         end
 
         should "render action" do
-          assert_equal "noop", @response.body
+          assert_equal 200, @response.status
         end
 
         should "set Access-Control-Expose-Headers" do
