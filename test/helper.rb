@@ -46,8 +46,8 @@ class ActionController::TestCase
   end
 end
 
-if ActiveSupport::VERSION::MAJOR == 4
-  require "actionpack/action_caching"
+if ActiveSupport::VERSION::MAJOR >= 4
+  require "action_controller/action_caching"
 end
 
 require 'charcoal'
