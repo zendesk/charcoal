@@ -5,7 +5,7 @@ Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.description = "Helps you support JSONP and CORS in your Rails app"
   s.summary = "Cross-Origin helper for Rails"
   s.email = "sdavidovitz@zendesk.com"
-  s.homepage = "https://github.com/steved/charcoal"
+  s.homepage = "https://github.com/zendesk/charcoal"
 
   s.files = Dir.glob('{lib,config,app}/**/*')
 
