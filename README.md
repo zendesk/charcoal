@@ -1,6 +1,6 @@
 # charcoal
 
-JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 2 and above.
+JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 3 and above.
 
 ## Usage
 
@@ -36,6 +36,11 @@ map.connect "*path.:format", :conditions => { :method => :options }, :action => 
 Rails 3 / 4:
 ```ruby
 match '*path.:format' => 'charcoal/cross_origin#preflight', :via => :options
+```
+
+Rails 5:
+```ruby
+match '*path', :to => 'charcoal/cross_origin#preflight', :via => :options
 ```
 
 #### Configuration
@@ -106,7 +111,7 @@ This example adds the `allow_animals` directive that logs "QUACK!" if an applica
 
 ## Supported Versions
 
-Tested with Ruby 1.9.3, 2.0 and 2.1.1 and Rails 2.3, 3.2, 4.0 and 4.1.
+Tested with Ruby 2.0, 2.1, 2.2, 2.3, and 2.4, and Rails 3.2, 4.1, 4.2, and 5.0.
 [![Build Status](https://secure.travis-ci.org/zendesk/charcoal.png?branch=master)](http://travis-ci.org/zendesk/charcoal)
 
 ## Contributing to charcoal
