@@ -63,7 +63,7 @@ end
 # Sets Access-Control-Allow-Credentials
 "credentials" => true
 
-# Access-Control-Allow-Headers
+# Access-Control-Expose-Headers
 "expose-headers" => []
 
 # Access-Control-Max-Age
