@@ -1,6 +1,6 @@
 # charcoal
 
-JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 2 and above.
+JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 3 and above.
 
 ## Usage
 
@@ -38,6 +38,11 @@ Rails 3 / 4:
 match '*path.:format' => 'charcoal/cross_origin#preflight', :via => :options
 ```
 
+Rails 5:
+```ruby
+match '*path', :to => 'charcoal/cross_origin#preflight', :via => :options
+```
+
 #### Configuration
 
 The configuration options and defaults for CORS are as follows:
@@ -58,7 +63,7 @@ end
 # Sets Access-Control-Allow-Credentials
 "credentials" => true
 
-# Access-Control-Allow-Headers
+# Access-Control-Expose-Headers
 "expose-headers" => []
 
 # Access-Control-Max-Age
@@ -106,7 +111,7 @@ This example adds the `allow_animals` directive that logs "QUACK!" if an applica
 
 ## Supported Versions
 
-Tested with Ruby 1.9.3, 2.0 and 2.1.1 and Rails 2.3, 3.2, 4.0 and 4.1.
+Tested with Ruby 2.0, 2.1, 2.2, 2.3, and 2.4, and Rails 3.2, 4.1, 4.2, 5.0, and 5.1.
 [![Build Status](https://secure.travis-ci.org/zendesk/charcoal.png?branch=master)](http://travis-ci.org/zendesk/charcoal)
 
 ## Contributing to charcoal

@@ -36,7 +36,7 @@ class JSONPTest < ActionController::TestCase
         end
 
         should "return a proper response" do
-          assert_match /hello\(.*\)/, @response.body
+          assert_match(/hello\(.*\)/, @response.body)
         end
 
         should "return a proper response type" do
@@ -53,7 +53,7 @@ class JSONPTest < ActionController::TestCase
           end
 
           should "properly cache the response" do
-            assert_match /hello\(.*\)/, @response.body
+            assert_match(/hello\(.*\)/, @response.body)
           end
 
           should "properly cache the response type" do
