@@ -107,7 +107,7 @@ module MyFilter
 end
 ```
 
-This example adds the `allow_animals` directive that logs "QUACK!" if an applicable request is received.
+This example adds the `animals_allowed` directive that logs "QUACK!" if an applicable request is received.
 
 ## Supported Versions
 
