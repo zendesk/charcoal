@@ -2,6 +2,8 @@ require 'charcoal/controller_filter'
 
 module Charcoal
   module JSONP
+    VALID_JS_FN = /\A[_$a-z][$\w\.]*\z/i.freeze
+
     def self.included(klass)
       klass.extend(ClassMethods)
       if klass.respond_to?(:prepend_around_action)
@@ -35,7 +37,7 @@ module Charcoal
     end
 
     def jsonp_request?
-      params[:callback].present? && jsonp_allowed?
+      params[:callback] =~ VALID_JS_FN && jsonp_allowed?
     end
 
     def add_jsonp_callback

@@ -95,6 +95,36 @@ class JSONPTest < ActionController::TestCase
         should "change content-type" do
           assert_equal "application/javascript", subject.response.content_type
         end
+
+        context "valid callback names" do
+          setup do
+            @valid_fns = ['foo', '_foo', '$foo', '$.foo', 'foo_v2', 'foo2', '__foo._foo']
+          end
+
+          should "add jsonp callback" do
+            @valid_fns.each do |fn|
+              subject.params.replace(:callback => fn, :action => "test")
+              subject.send(:add_jsonp_callback) {}
+
+              assert_equal "#{fn}(#{@response})", subject.response.body
+            end
+          end
+        end
+
+        context "invalid callback names" do
+          setup do
+            @invalid_fns = ['123', '123foo', 'SPAM!%0d%0afoo.com', "foo\nbar", '; foo()', '.foo']
+          end
+
+          should "not add jsonp callback" do
+            @invalid_fns.each do |fn|
+              subject.params.replace(:callback => fn, :action => "test")
+              subject.send(:add_jsonp_callback) {}
+
+              assert_equal @response, subject.response.body
+            end
+          end
+        end
       end
 
       context "without params" do
