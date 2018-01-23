@@ -20,6 +20,4 @@ Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.add_development_dependency 'yard', '>= 0.9.11'
 
   s.add_development_dependency 'shoulda', '~> 3.0'
-  s.add_development_dependency 'shoulda-context'
-  s.add_development_dependency 'mocha'
 end
