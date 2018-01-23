@@ -8,7 +8,6 @@ rescue LoadError
 end
 
 require 'minitest/autorun'
-require 'mocha/setup'
 
 require 'shoulda'
 require 'active_support/version'
