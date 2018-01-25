@@ -21,6 +21,11 @@ class TestCorsController < ActionController::Base
 end
 
 class TestCorsControllerTest < ActionController::TestCase
+  ACTIONS = {
+    "success" => :test_action,
+    "error"   => :test_error_action
+  }
+
   context TestCorsController do
     context "allowing cors" do
       subject { TestCorsController.new }
@@ -35,39 +40,56 @@ class TestCorsControllerTest < ActionController::TestCase
     end
 
     context "cors callback" do
-      {
-        "Access-Control-Allow-Origin" => "allow-origin",
-        "Access-Control-Allow-Credentials" => "credentials",
-      }.each do |header, key|
-        context "CORS header -> #{header}" do
-          setup do
-            @original, Charcoal.configuration[key] = Charcoal.configuration[key], "test"
+      ["success","error"].each do |response_state|
+        context "with #{response_state} response" do
+          context "CORS header -> Access-Control-Allow-Origin" do
+            setup do
+              @original, Charcoal.configuration["allow-origin"] = Charcoal.configuration["allow-origin"], "test"
 
-            get :test_action
+              get ACTIONS[response_state]
+            end
+
+            teardown do
+              Charcoal.configuration["allow-origin"] = @original
+            end
+
+            should "be the same as the configuration" do
+              assert_equal "test", @response.headers["Access-Control-Allow-Origin"], @response.headers.inspect
+            end
           end
 
-          teardown do
-            Charcoal.configuration[key] = @original
-          end
+          context "CORS header -> Access-Control-Allow-Credentials" do
+            context "when configured with non-false value" do
+              setup do
+                @original, Charcoal.configuration["credentials"] = Charcoal.configuration["credentials"], true
 
-          should "be the same as the configuration" do
-            assert_equal "test", @response.headers[header], @response.headers.inspect
-          end
-        end
+                get ACTIONS[response_state]
+              end
 
-        context "CORS header -> #{header} with error response" do
-          setup do
-            @original, Charcoal.configuration[key] = Charcoal.configuration[key], "test"
+              teardown do
+                Charcoal.configuration["credentials"] = @original
+              end
 
-            get :test_error_action
-          end
+              should "be present, and true" do
+                assert_equal "true", @response.headers["Access-Control-Allow-Credentials"], @response.headers.inspect
+              end
+            end
 
-          teardown do
-            Charcoal.configuration[key] = @original
-          end
+            context "when configured with false value" do
+              setup do
+                @original, Charcoal.configuration["credentials"] = Charcoal.configuration["credentials"], false
 
-          should "be the same as the configuration" do
-            assert_equal "test", @response.headers[header], @response.headers.inspect
+                get ACTIONS[response_state]
+              end
+
+              teardown do
+                Charcoal.configuration["credentials"] = @original
+              end
+
+              should "not be present" do
+                assert_nil @response.headers["Access-Control-Allow-Credentials"], @response.headers.inspect
+              end
+            end
           end
         end
       end
@@ -89,6 +111,48 @@ class TestCorsControllerTest < ActionController::TestCase
 
         should "be the same as the configuration" do
           assert_equal "TestCorsController", @response.headers["Access-Control-Allow-Origin"], @response.headers.inspect
+        end
+      end
+
+      context "when Allow-Credentials is a block" do
+        context "which resolves to a non-false value" do
+          setup do
+            block = lambda do |controller|
+              true
+            end
+
+            @original, Charcoal.configuration["credentials"] = Charcoal.configuration["credentials"], block
+
+            get :test_action
+          end
+
+          teardown do
+            Charcoal.configuration["credentials"] = @original
+          end
+
+          should "be present, and true" do
+            assert_equal "true", @response.headers["Access-Control-Allow-Credentials"], @response.headers.inspect
+          end
+        end
+
+        context "which resolves to a false value" do
+          setup do
+            block = lambda do |controller|
+              false
+            end
+
+            @original, Charcoal.configuration["credentials"] = Charcoal.configuration["credentials"], block
+
+            get :test_action
+          end
+
+          teardown do
+            Charcoal.configuration["credentials"] = @original
+          end
+
+          should "not be present" do
+            assert_nil @response.headers["Access-Control-Allow-Credentials"], @response.headers.inspect
+          end
         end
       end
 
