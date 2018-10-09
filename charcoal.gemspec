@@ -17,7 +17,7 @@ Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'wwtd'
   s.add_development_dependency 'bump'
-  s.add_development_dependency 'yard', '>= 0.9.11'
+  s.add_development_dependency 'yard', '~> 0.9.11'
 
   s.add_development_dependency 'shoulda', '~> 3.0'
 end
