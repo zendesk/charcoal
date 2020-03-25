@@ -50,25 +50,28 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  if RUBY_VERSION>='2.6.0'
-    if Rails.version < '5'
-      class ActionController::TestResponse < ActionDispatch::TestResponse
-        def recycle!
-          # hack to avoid MonitorMixin double-initialize error:
-          @mon_mutex_owner_object_id = nil
-          @mon_mutex = nil
-          initialize
-        end
-      end
-    else
-      puts "Monkeypatch for ActionController::TestResponse no longer needed"
-    end
-  end
-  
   def setup
     @routes = TestApp.routes
   end
 end
+
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.6.0') && ActionPack.version < Gem::Version.new('5.0.0')
+  module ActionControllerTestResponseThreadingPatch
+    def recycle!
+      # hack to avoid MonitorMixin double-initialize error:
+      @mon_mutex_owner_object_id = nil
+      @mon_mutex = nil
+      initialize
+    end
+  end
+
+  ActionController::TestResponse.prepend ActionControllerTestResponseThreadingPatch
+else
+  ActiveSupport::Deprecation.warn <<~WARN
+    ActionController::TestResponse monkey patch at #{__FILE__}:#{__LINE__} will no longer be needed when Rails 4.x support is dropped.
+  WARN
+end
+
 
 if ActiveSupport::VERSION::MAJOR >= 4
   require "action_controller/action_caching"
