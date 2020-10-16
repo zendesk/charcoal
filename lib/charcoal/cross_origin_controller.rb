@@ -1,11 +1,14 @@
 # This controller handles CORS preflight requests
 # See https://developer.mozilla.org/En/HTTP_access_control for documentation
 
-require 'action_controller'
+require 'action_controller/metal'
 require 'active_support/version'
 require 'charcoal/utilities'
 
-class Charcoal::CrossOriginController < ActionController::Base
+class Charcoal::CrossOriginController < ActionController::Metal
+  include AbstractController::Callbacks
+  include ActionController::Head
+  include ActionController::Instrumentation
   include Charcoal::CrossOrigin
   include Charcoal::Utilities
 
