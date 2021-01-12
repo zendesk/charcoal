@@ -111,8 +111,9 @@ This example adds the `allow_animals` directive that logs "QUACK!" if an applica
 
 ## Supported Versions
 
-Tested with Ruby 2.0, 2.1, 2.2, 2.3, and 2.4, and Rails 3.2, 4.1, 4.2, 5.0, and 5.1.
-[![Build Status](https://secure.travis-ci.org/zendesk/charcoal.png?branch=master)](http://travis-ci.org/zendesk/charcoal)
+Ruby >= 2.4 and Rails >= 4.2.
+
+[![Build Status](https://github.com/zendesk/charcoal/workflows/CI/badge.svg)](https://github.com/zendesk/charcoal/actions?query=workflow%3ACI)
 
 ## Contributing to charcoal
 
