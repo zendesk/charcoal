@@ -10,7 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         ruby-version:
-          - '2.4'
           - '2.5'
           - '2.6'
           - '2.7'
@@ -22,8 +21,6 @@ jobs:
           - rails5.2
           - rails6.0
         exclude:
-          - ruby-version: '2.4'
-            gemfile: rails6.0
           - ruby-version: '2.5'
             gemfile: rails4.2
           - ruby-version: '2.6'
@@ -46,13 +43,6 @@ jobs:
         uses: zendesk/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-          bundler: 1
-        if: ${{ matrix.ruby-version == '2.4' }}
-      - name: Set up Ruby
-        uses: zendesk/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby-version }}
-        if: ${{ matrix.ruby-version != '2.4' }}
       - run: bundle install
       - name: Tests
         run: bundle exec rake test
