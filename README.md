@@ -1,6 +1,6 @@
 # charcoal
 
-JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 3 and above.
+JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 5 and above.
 
 ## Usage
 
@@ -111,7 +111,7 @@ This example adds the `allow_animals` directive that logs "QUACK!" if an applica
 
 ## Supported Versions
 
-Ruby >= 2.5 and Rails >= 4.2.
+Ruby >= 2.5 and Rails >= 5.0.
 
 [![Build Status](https://github.com/zendesk/charcoal/workflows/CI/badge.svg)](https://github.com/zendesk/charcoal/actions?query=workflow%3ACI)
 

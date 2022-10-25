@@ -15,8 +15,8 @@ Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
 
   s.required_ruby_version = '>= 2.5'
 
-  s.add_runtime_dependency 'activesupport', '>= 3.2.21', '< 6.2'
-  s.add_runtime_dependency 'actionpack', '>= 3.2.21', '< 6.2'
+  s.add_runtime_dependency 'activesupport', '>= 5.0.0', '< 6.2'
+  s.add_runtime_dependency 'actionpack', '>= 5.0.0', '< 6.2'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'bump'

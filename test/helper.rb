@@ -41,11 +41,7 @@ end
 
 class ActiveSupport::TestCase
   def change_params(change)
-    if Rails::VERSION::MAJOR < 5
-      subject.params.replace(change)
-    else
-      subject.params = subject.params.to_unsafe_h.merge(change)
-    end
+    subject.params = subject.params.to_unsafe_h.merge(change)
   end
 end
 
@@ -55,26 +51,5 @@ class ActionController::TestCase
   end
 end
 
-if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.6.0') && ActionPack.version < Gem::Version.new('5.0.0')
-  module ActionControllerTestResponseThreadingPatch
-    def recycle!
-      # hack to avoid MonitorMixin double-initialize error:
-      @mon_mutex_owner_object_id = nil
-      @mon_mutex = nil
-      initialize
-    end
-  end
-
-  ActionController::TestResponse.prepend ActionControllerTestResponseThreadingPatch
-else
-  ActiveSupport::Deprecation.warn <<~WARN
-    ActionController::TestResponse monkey patch at #{__FILE__}:#{__LINE__} will no longer be needed when Rails 4.x support is dropped.
-  WARN
-end
-
-
-if ActiveSupport::VERSION::MAJOR >= 4
-  require "action_controller/action_caching"
-end
-
+require "action_controller/action_caching"
 require 'charcoal'

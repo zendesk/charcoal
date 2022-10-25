@@ -28,11 +28,7 @@ class JSONPTest < ActionController::TestCase
 
       context "a GET to :test" do
         setup do
-          if Rails::VERSION::MAJOR < 5
-            get :test, :callback => "hello"
-          else
-            get :test, :params => { :callback => "hello" }
-          end
+          get :test, :params => { :callback => "hello" }
         end
 
         should "return a proper response" do
@@ -40,16 +36,12 @@ class JSONPTest < ActionController::TestCase
         end
 
         should "return a proper response type" do
-          assert_equal "application/javascript", media_type(@response)
+          assert_equal "application/javascript", @response.media_type
         end
 
         context "a second call" do
           setup do
-            if Rails::VERSION::MAJOR < 5
-              get :test, :callback => "hello"
-            else
-              get :test, :params => { :callback => "hello" }
-            end
+            get :test, :params => { :callback => "hello" }
           end
 
           should "properly cache the response" do
@@ -57,7 +49,7 @@ class JSONPTest < ActionController::TestCase
           end
 
           should "properly cache the response type" do
-            assert_equal "application/javascript", media_type(@response)
+            assert_equal "application/javascript", @response.media_type
           end
         end
       end
@@ -93,7 +85,7 @@ class JSONPTest < ActionController::TestCase
         end
 
         should "change content-type" do
-          assert_equal "application/javascript", media_type(subject.response)
+          assert_equal "application/javascript", subject.response.media_type
         end
       end
 
@@ -105,17 +97,9 @@ class JSONPTest < ActionController::TestCase
         end
 
         should "not change content-type" do
-          assert_equal @content_type, media_type(subject.response)
+          assert_equal @content_type, subject.response.media_type
         end
       end
-    end
-  end
-
-  def media_type(response)
-    if ActiveSupport::VERSION::MAJOR < 5
-      response.content_type
-    else
-      response.media_type
     end
   end
 end

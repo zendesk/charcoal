@@ -45,8 +45,7 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
         end
 
         should "allow proper methods" do
-          allowed = ["GET", "PUT"]
-          allowed.insert(1, "HEAD") if ActiveSupport::VERSION::MAJOR >= 4
+          allowed = ["GET", "HEAD", "PUT"]
           assert_equal allowed.join(','), @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
         end
 
