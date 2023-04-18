@@ -7,16 +7,14 @@ Gem::Specification.new('charcoal', Charcoal::VERSION) do |s|
   s.email = "sdavidovitz@zendesk.com"
   s.homepage = "https://github.com/zendesk/charcoal"
 
-  s.required_ruby_version = '>= 2.4.0'
+  s.required_ruby_version = '>= 2.7'
 
   s.files = Dir.glob('{lib,config,app}/**/*')
 
   s.licenses = ['MIT']
 
-  s.required_ruby_version = '>= 2.5'
-
-  s.add_runtime_dependency 'activesupport', '>= 5.0.0', '< 7.1'
-  s.add_runtime_dependency 'actionpack', '>= 5.0.0', '< 7.1'
+  s.add_runtime_dependency 'activesupport', '>= 5.2', '< 7.1'
+  s.add_runtime_dependency 'actionpack', '>= 5.2', '< 7.1'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'bump'

@@ -1,6 +1,6 @@
 # charcoal
 
-JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration for Rails versions 5 and above.
+JSONP ("JSON with padding") and CORS (Cross-Origin Resource Sharing) filtration.
 
 ## Usage
 
