@@ -28,16 +28,6 @@ Include the module `Charcoal::CrossOrigin` in the controller you'd like to allow
 
 Included is a CORS pre-flight controller that must be hooked up to the Rails router:
 
-Rails 2:
-```ruby
-map.connect "*path.:format", :conditions => { :method => :options }, :action => "preflight", :controller => "cross_origin", :namespace => "charcoal/"
-```
-
-Rails 3 / 4:
-```ruby
-match '*path.:format' => 'charcoal/cross_origin#preflight', :via => :options
-```
-
 Rails 5:
 ```ruby
 match '*path', :to => 'charcoal/cross_origin#preflight', :via => :options
@@ -111,7 +101,7 @@ This example adds the `allow_animals` directive that logs "QUACK!" if an applica
 
 ## Supported Versions
 
-Ruby >= 2.5 and Rails >= 5.0.
+Ruby >= 2.7 and Rails >= 5.2.
 
 [![Build Status](https://github.com/zendesk/charcoal/workflows/CI/badge.svg)](https://github.com/zendesk/charcoal/actions?query=workflow%3ACI)
 
