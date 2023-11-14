@@ -17,7 +17,6 @@ Gem::Specification.new("charcoal", Charcoal::VERSION) do |s|
   s.add_runtime_dependency "actionpack", ">= 5.2", "< 7.2"
 
   s.add_development_dependency "rake"
-  s.add_development_dependency "bump"
   s.add_development_dependency "yard", ">= 0.9.11"
 
   s.add_development_dependency "shoulda", "~> 3.0"
