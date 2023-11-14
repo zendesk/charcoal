@@ -1,4 +1,4 @@
-require 'charcoal/controller_filter'
+require "charcoal/controller_filter"
 
 module Charcoal
   module JSONP
@@ -15,7 +15,7 @@ module Charcoal
       include ControllerFilter
 
       def jsonp_allowed
-        @jsonp_allowed ||= Hash.new(lambda {|_| false})
+        @jsonp_allowed ||= Hash.new(lambda { |_| false })
       end
 
       allow :jsonp do |method, directive|
@@ -41,7 +41,7 @@ module Charcoal
     def add_jsonp_callback
       yield
 
-      if response.status.to_s.starts_with?('200') && jsonp_request?
+      if response.status.to_s.starts_with?("200") && jsonp_request?
         response.content_type = "application/javascript"
         response.body = "#{params[:callback]}(#{response.body})"
       end

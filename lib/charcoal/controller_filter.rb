@@ -15,10 +15,10 @@ module Charcoal
           methods = args.map(&:to_sym)
           methods = [:all] if methods.empty?
 
-          if options[:unless]
-            directive = lambda {|c| !parse_directive(options[:unless]).call(c)}
+          directive = if options[:unless]
+            lambda { |c| !parse_directive(options[:unless]).call(c) }
           else
-            directive = parse_directive(options[:if] || true)
+            parse_directive(options[:if] || true)
           end
 
           methods.each do |method|
@@ -34,9 +34,9 @@ module Charcoal
       return directive if directive.respond_to?(:call)
 
       if directive.respond_to?(:to_sym) && method_defined?(directive.to_sym)
-        lambda {|c| c.send(directive.to_sym)}
+        lambda { |c| c.send(directive.to_sym) }
       else
-        lambda {|c| directive}
+        lambda { |c| directive }
       end
     end
   end

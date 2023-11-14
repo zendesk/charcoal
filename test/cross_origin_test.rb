@@ -1,4 +1,4 @@
-require File.expand_path('helper', File.dirname(__FILE__))
+require File.expand_path("helper", File.dirname(__FILE__))
 
 class TestCorsController < ActionController::Base
   include Charcoal::CrossOrigin
@@ -23,7 +23,7 @@ end
 class TestCorsControllerTest < ActionController::TestCase
   ACTIONS = {
     "success" => :test_action,
-    "error"   => :test_error_action
+    "error" => :test_error_action
   }
 
   context TestCorsController do
@@ -31,7 +31,7 @@ class TestCorsControllerTest < ActionController::TestCase
       subject { TestCorsController.new }
 
       setup do
-        subject.params = { :action => "test_action" }
+        subject.params = {action: "test_action"}
       end
 
       should "allow cors" do
@@ -40,7 +40,7 @@ class TestCorsControllerTest < ActionController::TestCase
     end
 
     context "cors callback" do
-      ["success","error"].each do |response_state|
+      ["success", "error"].each do |response_state|
         context "with #{response_state} response" do
           context "CORS header -> Access-Control-Allow-Origin" do
             setup do
@@ -158,7 +158,7 @@ class TestCorsControllerTest < ActionController::TestCase
 
       context "without any other request method" do
         setup do
-          @original, Charcoal.configuration["expose-headers"] = Charcoal.configuration["expose-headers"], %w{test 123}
+          @original, Charcoal.configuration["expose-headers"] = Charcoal.configuration["expose-headers"], %w[test 123]
 
           get :test_action
         end

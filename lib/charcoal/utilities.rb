@@ -1,4 +1,4 @@
-require 'action_controller'
+require "action_controller"
 
 module Charcoal::Utilities
   Routing = defined?(ActionDispatch) ? ActionDispatch::Routing : ActionController::Routing
@@ -15,7 +15,7 @@ module Charcoal::Utilities
     Routing::HTTP_METHODS.select do |verb|
       next if verb == :options
 
-      route = find_route(request.path, request.env.merge(:method => verb))
+      route = find_route(request.path, request.env.merge(method: verb))
 
       if route
         controller = route[:controller].camelize
@@ -28,7 +28,7 @@ module Charcoal::Utilities
         instance.response = response
 
         method_name = "#{protocol}_allowed"
-        controller.respond_to?(method_name.to_sym) && controller.send(method_name + '?', instance, action)
+        controller.respond_to?(method_name.to_sym) && controller.send(method_name + "?", instance, action)
       else
         false
       end
@@ -40,13 +40,11 @@ module Charcoal::Utilities
 
     railties = Rails.application.railties
     railties = railties.respond_to?(:all) ? railties.all : railties._all
-    routes += railties.select {|tie| tie.is_a?(Rails::Engine)}.map(&:routes)
+    routes += railties.select { |tie| tie.is_a?(Rails::Engine) }.map(&:routes)
 
     routes.each do |route_set|
-      begin
-        return route_set.recognize_path(path, env)
-      rescue ActionController::RoutingError
-      end
+      return route_set.recognize_path(path, env)
+    rescue ActionController::RoutingError
     end
 
     nil
