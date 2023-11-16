@@ -1,5 +1,6 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gemspec path: '../'
+gemspec path: "../"
 
-gem 'byebug', :platforms => :mri
+gem "byebug", platforms: :mri
+gem "standard"

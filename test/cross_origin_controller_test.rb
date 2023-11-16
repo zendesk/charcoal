@@ -5,7 +5,8 @@ class TestController < ActionController::Base
   allow_cors :test
 
   # GET, PUT
-  def test; end
+  def test
+  end
 end
 
 class EngineController < ActionController::Base
@@ -13,7 +14,8 @@ class EngineController < ActionController::Base
   allow_cors :test
 
   # POST
-  def test; end
+  def test
+  end
 end
 
 class Charcoal::CrossOriginControllerTest < ActionController::TestCase
@@ -46,7 +48,7 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
 
         should "allow proper methods" do
           allowed = ["GET", "HEAD", "PUT"]
-          assert_equal allowed.join(','), @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
+          assert_equal allowed.join(","), @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
         end
 
         should "set Access-Control-Allow-Headers header" do
@@ -59,7 +61,7 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
 
         should "render text/plain response" do
           assert @response.body.blank?
-          assert_match %r[text/plain], @response.headers["Content-Type"], @response.headers.inspect
+          assert_match %r{text/plain}, @response.headers["Content-Type"], @response.headers.inspect
         end
       end
     end
@@ -84,7 +86,7 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
 
       should "render text/plain response" do
         assert @response.body.blank?
-        assert_match %r[text/plain], @response.headers["Content-Type"], @response.headers.inspect
+        assert_match %r{text/plain}, @response.headers["Content-Type"], @response.headers.inspect
       end
     end
   end

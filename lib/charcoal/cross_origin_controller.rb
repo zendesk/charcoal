@@ -1,9 +1,9 @@
 # This controller handles CORS preflight requests
 # See https://developer.mozilla.org/En/HTTP_access_control for documentation
 
-require 'action_controller/metal'
-require 'active_support/version'
-require 'charcoal/utilities'
+require "action_controller/metal"
+require "active_support/version"
+require "charcoal/utilities"
 
 class Charcoal::CrossOriginController < ActionController::Metal
   include AbstractController::Callbacks
@@ -25,10 +25,10 @@ class Charcoal::CrossOriginController < ActionController::Metal
       set_cors_headers
       headers["Access-Control-Allow-Methods"] = allowed_methods.join(",").upcase
       headers["Access-Control-Max-Age"] = Charcoal.configuration["max-age"].to_s
-      headers['Access-Control-Allow-Headers'] = Charcoal.configuration["allow-headers"].join(",")
+      headers["Access-Control-Allow-Headers"] = Charcoal.configuration["allow-headers"].join(",")
     end
 
-    head :ok, :content_type => "text/plain"
+    head :ok, content_type: "text/plain"
   end
 
   private

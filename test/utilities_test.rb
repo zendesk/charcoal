@@ -1,5 +1,5 @@
-require File.expand_path('helper', File.dirname(__FILE__))
-require 'charcoal/utilities'
+require File.expand_path("helper", File.dirname(__FILE__))
+require "charcoal/utilities"
 
 class TestCorsController < ActionController::Base
   include Charcoal::CrossOrigin
@@ -17,20 +17,20 @@ end
 
 class TestCorsControllerTest < ActionController::TestCase
   context TestCorsController do
-    context '#allowed_methods_for?' do
+    context "#allowed_methods_for?" do
       subject { TestCorsController.new }
 
       setup do
-        subject.params = { :action => "test" }
+        subject.params = {action: "test"}
       end
 
-      should 'return the allowed methods' do
+      should "return the allowed methods" do
         get :test
 
         parsed_response = JSON.parse(response.body)
 
-        refute parsed_response['cors'].empty?
-        assert parsed_response['others'].empty?
+        refute parsed_response["cors"].empty?
+        assert parsed_response["others"].empty?
       end
     end
   end

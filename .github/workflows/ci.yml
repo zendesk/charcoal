@@ -18,12 +18,13 @@ jobs:
           - rails6.0
           - rails6.1
           - rails7.0
+          - rails7.1
         include:
           - {ruby-version: '2.7', gemfile: rails5.2}
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
-      - uses: zendesk/checkout@v2
+      - uses: zendesk/checkout@v4
       - name: Set up Ruby
         uses: zendesk/setup-ruby@v1
         with:
@@ -31,3 +32,13 @@ jobs:
       - run: bundle install
       - name: Tests
         run: bundle exec rake test
+
+  linter:
+    runs-on: ubuntu-latest
+    name: Linting of Ruby files
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bundle exec rake standard

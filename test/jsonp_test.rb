@@ -1,4 +1,4 @@
-require File.expand_path('helper', File.dirname(__FILE__))
+require File.expand_path("helper", File.dirname(__FILE__))
 
 class JSONPControllerTester < ActionController::Base
   include Charcoal::JSONP
@@ -7,7 +7,7 @@ class JSONPControllerTester < ActionController::Base
   allow_jsonp :test
 
   def test
-    render :json => { :key => :value }
+    render json: {key: :value}
   end
 end
 
@@ -28,7 +28,7 @@ class JSONPTest < ActionController::TestCase
 
       context "a GET to :test" do
         setup do
-          get :test, :params => { :callback => "hello" }
+          get :test, params: {callback: "hello"}
         end
 
         should "return a proper response" do
@@ -41,7 +41,7 @@ class JSONPTest < ActionController::TestCase
 
         context "a second call" do
           setup do
-            get :test, :params => { :callback => "hello" }
+            get :test, params: {callback: "hello"}
           end
 
           should "properly cache the response" do
@@ -70,13 +70,13 @@ class JSONPTest < ActionController::TestCase
 
         subject.response = (defined?(ActionDispatch) ? ActionDispatch : ActionController)::Response.new
         subject.response.body = @response
-        subject.response.status = '200 OK'
+        subject.response.status = "200 OK"
         subject.response.content_type = @content_type
       end
 
       context "with params" do
         setup do
-          change_params(:callback => "callback", :action => "test")
+          change_params(callback: "callback", action: "test")
           subject.send(:add_jsonp_callback) {}
         end
 
