@@ -13,8 +13,8 @@ Gem::Specification.new("charcoal", Charcoal::VERSION) do |s|
 
   s.licenses = ["MIT"]
 
-  s.add_runtime_dependency "activesupport", ">= 6.1", "< 7.2"
-  s.add_runtime_dependency "actionpack", ">= 6.1", "< 7.2"
+  s.add_runtime_dependency "activesupport", ">= 6.1"
+  s.add_runtime_dependency "actionpack", ">= 6.1"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "yard", ">= 0.9.11"
