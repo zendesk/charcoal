@@ -19,6 +19,7 @@ jobs:
           - rails7.1
           - rails_main
     env:
+      RUBYOPT: --enable=frozen-string-literal
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
       - uses: zendesk/checkout@v4
