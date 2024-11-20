@@ -32,9 +32,24 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-      - run: bundle install
+          bundler-cache: true
       - name: Tests
         run: bundle exec rake test
+
+  tests_successful:
+    name: Tests passing?
+    needs: tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if ${{ needs.tests.result == 'success' }}
+          then
+            echo "All tests pass"
+          else
+            echo "Some tests failed"
+            false
+          fi
 
   linter:
     runs-on: ubuntu-latest
