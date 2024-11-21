@@ -57,5 +57,4 @@ class ActionController::TestCase
   end
 end
 
-require "action_controller/action_caching"
 require "charcoal"
