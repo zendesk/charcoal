@@ -12,6 +12,7 @@ jobs:
         ruby-version:
           - '3.2'
           - '3.3'
+          - '3.4'
         gemfile:
           - rails6.1
           - rails7.0
