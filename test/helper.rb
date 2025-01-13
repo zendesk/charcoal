@@ -21,7 +21,7 @@ class TestApp < Rails::Application
   config.active_support.test_order = :random if config.active_support.respond_to?(:test_order=)
   config.eager_load = false
   config.secret_key_base = "secret"
-  config.logger = Logger.new(RUBY_PLATFORM.match?(/(mingw|bccwin|wince|mswin32)/i) ? "NUL:" : "/dev/null")
+  config.logger = Logger.new(File::NULL)
 end
 
 class TestEngine < Rails::Engine
