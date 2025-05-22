@@ -11,7 +11,7 @@ require "minitest/autorun"
 
 require "shoulda"
 require "active_support/version"
-
+require "logger"
 require "action_controller/railtie"
 require "rails/test_unit/railtie"
 
