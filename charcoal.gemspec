@@ -7,7 +7,7 @@ Gem::Specification.new("charcoal", Charcoal::VERSION) do |s|
   s.email = "sdavidovitz@zendesk.com"
   s.homepage = "https://github.com/zendesk/charcoal"
 
-  s.required_ruby_version = ">= 3.1"
+  s.required_ruby_version = ">= 3.2"
 
   s.files = Dir.glob("{lib,config,app}/**/*")
 

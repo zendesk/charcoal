@@ -100,7 +100,7 @@ This example adds the `allow_animals` directive that logs "QUACK!" if an applica
 
 ## Supported Versions
 
-Ruby >= 3.1 and Rails >= 6.1
+Ruby >= 3.2 and Rails >= 6.1
 
 [![CI status](https://github.com/zendesk/charcoal/actions/workflows/ci.yml/badge.svg)](https://github.com/zendesk/charcoal/actions/workflows/ci.yml)
 
