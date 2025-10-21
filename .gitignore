@@ -17,5 +17,5 @@ tmp
 _yardoc
 doc/
 
-Gemfile.lock
-gemfiles/*.lock
+/Gemfile.lock
+/gemfiles/rails_main.gemfile.lock
