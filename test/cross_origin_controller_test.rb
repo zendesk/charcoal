@@ -2,6 +2,7 @@ require File.expand_path("helper", File.dirname(__FILE__))
 
 class TestController < ActionController::Base
   include Charcoal::CrossOrigin
+
   allow_cors :test
 
   # GET, PUT
@@ -11,6 +12,7 @@ end
 
 class EngineController < ActionController::Base
   include Charcoal::CrossOrigin
+
   allow_cors :test
 
   # POST
