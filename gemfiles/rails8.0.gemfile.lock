@@ -43,7 +43,7 @@ GEM
     bigdecimal (3.3.1)
     builder (3.3.0)
     byebug (12.0.0)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.6)
     connection_pool (2.5.4)
     crass (1.0.6)
     date (3.4.1)
@@ -64,10 +64,10 @@ GEM
     loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    minitest (5.26.0)
-    nokogiri (1.18.10-aarch64-linux-gnu)
+    minitest (5.27.0)
+    nokogiri (1.19.0-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.10-arm64-darwin)
+    nokogiri (1.19.0-arm64-darwin)
       racc (~> 1.4)
     parallel (1.27.0)
     parser (3.3.9.0)
@@ -106,7 +106,7 @@ GEM
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    rake (13.3.0)
+    rake (13.3.1)
     rdoc (6.15.0)
       erb
       psych (>= 4.0.0)
@@ -159,7 +159,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
-    unicode-emoji (4.1.0)
+    unicode-emoji (4.2.0)
     uri (1.0.4)
     useragent (0.16.11)
     yard (0.9.37)
@@ -179,4 +179,4 @@ DEPENDENCIES
   yard (>= 0.9.11)
 
 BUNDLED WITH
-   2.7.1
+  4.0.3
