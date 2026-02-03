@@ -1,6 +1,13 @@
 name: CI
 
-on: push
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   tests:
@@ -18,11 +25,10 @@ jobs:
           - rails7.1
           - rails7.2
           - rails8.0
-          - rails_main
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -35,7 +41,7 @@ jobs:
     name: Tests passing?
     needs: tests
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - run: |
           if ${{ needs.tests.result == 'success' }}
@@ -47,10 +53,10 @@ jobs:
           fi
 
   linter:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     name: Linting of Ruby files
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
