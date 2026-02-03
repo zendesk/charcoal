@@ -1,29 +1,24 @@
 name: Test against Rails main
 
 on:
+  pull_request:
   schedule:
     - cron: "0 0 * * *" # Run every day at 00:00 UTC
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   tests:
+    name: Test with Rails main
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        ruby-version:
-          - '3.4'
-        gemfile:
-          - rails_main
     env:
-      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
+      BUNDLE_GEMFILE: gemfiles/rails_main.gemfile
     steps:
-      - uses: zendesk/checkout@v4
-      - name: Set up Ruby
-        uses: zendesk/setup-ruby@v1
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby-version }}
-      - run: bundle install
-      - name: Tests
-        run: bundle exec rake test
+          ruby-version: '3.4'
+          bundler-cache: true
+      - run: bundle exec rake test
