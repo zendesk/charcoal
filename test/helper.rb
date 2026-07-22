@@ -36,6 +36,7 @@ end
 TestApp.routes.draw do
   mount TestEngine => ""
   match "/test" => "test#test", :via => [:get, :put]
+  match "/catch_all" => "catch_all#any", :via => :all
   match "*path.:format" => "charcoal/cross_origin#preflight", :via => :options
   get "test_controller/test_action", to: "test_controller#test_action"
   get "test_cors/test_action", to: "test_cors#test_action"

@@ -20,6 +20,16 @@ class EngineController < ActionController::Base
   end
 end
 
+class CatchAllController < ActionController::Base
+  include Charcoal::CrossOrigin
+
+  allow_cors :any
+
+  # mounted at "/catch_all" with `via: :all`
+  def any
+  end
+end
+
 class Charcoal::CrossOriginControllerTest < ActionController::TestCase
   context Charcoal::CrossOriginController do
     setup do
@@ -65,6 +75,18 @@ class Charcoal::CrossOriginControllerTest < ActionController::TestCase
           assert @response.body.blank?
           assert_match %r{text/plain}, @response.headers["Content-Type"], @response.headers.inspect
         end
+      end
+    end
+
+    context "route matching every verb (via: :all)" do
+      setup do
+        @request.path = "/catch_all"
+        get :preflight
+      end
+
+      should "advertise every CORS verb Charcoal supports" do
+        allowed = Charcoal::Utilities::HTTP_METHODS.map { |verb| verb.to_s.upcase }
+        assert_equal allowed.join(","), @response.headers["Access-Control-Allow-Methods"], @response.headers.inspect
       end
     end
 

@@ -35,3 +35,17 @@ class TestCorsControllerTest < ActionController::TestCase
     end
   end
 end
+
+class UtilitiesHttpMethodsTest < ActiveSupport::TestCase
+  context "Charcoal::Utilities::HTTP_METHODS" do
+    setup do
+      @expected_verbs = [:get, :head, :post, :put, :delete, :patch]
+      # When Rails adds QUERY support https://github.com/rails/rails/pull/57973
+      @expected_verbs << :query if ActionDispatch::Request.const_defined?(:RFC10008)
+    end
+
+    should "contain exactly the advertised CORS verbs" do
+      assert_equal @expected_verbs, Charcoal::Utilities::HTTP_METHODS
+    end
+  end
+end

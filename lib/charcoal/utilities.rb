@@ -1,7 +1,27 @@
 require "action_controller"
+require "action_dispatch"
 
 module Charcoal::Utilities
-  Routing = defined?(ActionDispatch) ? ActionDispatch::Routing : ActionController::Routing
+  # OPTIONS is the preflight question, not an answer. CONNECT/TRACE/TRACK are
+  # "forbidden methods" the browser won't send cross-origin.
+  # See https://fetch.spec.whatwg.org/#forbidden-method
+  FORBIDDEN_CORS_METHODS = %w[OPTIONS CONNECT TRACE TRACK].freeze
+
+  # WebDAV / versioning families (PROPFIND, MKCOL, REPORT, …): recognized by
+  # Rails but never sent cross-origin. These are the RFC groups ActionDispatch
+  # concatenates to build HTTP_METHODS.
+  WEBDAV_METHODS = [
+    *ActionDispatch::Request::RFC2518,
+    *ActionDispatch::Request::RFC3253,
+    *ActionDispatch::Request::RFC3648,
+    *ActionDispatch::Request::RFC3744,
+    *ActionDispatch::Request::RFC5323,
+    *ActionDispatch::Request::RFC4791
+  ].freeze
+
+  # Verbs advertised in Access-Control-Allow-Methods.
+  HTTP_METHODS = (ActionDispatch::Request::HTTP_METHODS - FORBIDDEN_CORS_METHODS - WEBDAV_METHODS)
+    .map { |v| v.downcase.to_sym }.freeze
 
   def allowed_methods_for?(protocol)
     @allowed_methods ||= {}
@@ -12,9 +32,7 @@ module Charcoal::Utilities
   private
 
   def methods_allowed_for?(protocol)
-    Routing::HTTP_METHODS.select do |verb|
-      next if verb == :options
-
+    HTTP_METHODS.select do |verb|
       route = find_route(request.path, request.env.merge(method: verb))
 
       if route
