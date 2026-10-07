@@ -10,9 +10,14 @@ Include the module `Charcoal::JSONP` in the controller you'd like to allow JSONP
 You may then use `allow_jsonp` class method with the following options:
 
 ```ruby
-# directive is a method (symbol) or block (taking one argument, the controller instance)
+# directive is a method name, block, boolean, or array of conditions
 allow_jsonp method [method2 ...], :if => directive, :unless => directive
 ```
+
+Method predicates may be private and are resolved when the permission is checked.
+Blocks run in the controller instance's context and may optionally take that instance
+as an argument. When both `:if` and `:unless` are supplied, all `:if` conditions must
+be truthy and all `:unless` conditions must be falsey.
 
 `:all` is also a valid argument that applies to all methods. The default (with no arguments) is the same as `:all`.
 
