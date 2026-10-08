@@ -1,6 +1,7 @@
 require "minitest/autorun"
+require "open3"
+require "rbconfig"
 require "active_support"
-require "active_support/core_ext/hash/keys"
 require "charcoal/controller_filter"
 
 class ControllerFilterConditionsTest < Minitest::Test
@@ -73,6 +74,51 @@ class ControllerFilterConditionsTest < Minitest::Test
   def test_one_argument_procs_can_call_private_predicates
     @controller_class.allow_testing :index, if: proc { |controller| controller.send(:permitted?) }
     assert allowed?
+  end
+
+  def test_lambdas_with_optional_keywords_receive_the_controller
+    instance = @controller
+    @controller_class.allow_testing :index, if: ->(controller, role: "admin") { controller.equal?(instance) && role == "admin" && permitted? }
+    assert allowed?
+  end
+
+  def test_lambdas_with_optional_positional_arguments_receive_the_controller
+    instance = @controller
+    @controller_class.allow_testing :index, if: ->(controller = nil) { controller.equal?(instance) && permitted? }
+    assert allowed?
+  end
+
+  def test_procs_with_splats_receive_the_controller
+    instance = @controller
+    @controller_class.allow_testing :index, if: proc { |*arguments| arguments == [instance] && permitted? }
+    assert allowed?
+  end
+
+  def test_keyword_only_lambdas_do_not_receive_a_positional_argument
+    @controller_class.allow_testing :index, if: ->(role: "admin") { role == "admin" && permitted? }
+    assert allowed?
+  end
+
+  def test_standalone_loading_includes_the_required_core_extensions
+    code = <<~RUBY
+      require "charcoal/controller_filter"
+
+      class Controller
+        class << self
+          include Charcoal::ControllerFilter
+          attr_reader :directive
+
+          allow :testing do |action, directive|
+            @directive = directive
+          end
+        end
+      end
+
+      Controller.allow_testing :index, if: true
+      abort "permission was not granted" unless Controller.directive.call(Controller.new)
+    RUBY
+    output, status = Open3.capture2e(RbConfig.ruby, "-I", File.expand_path("../lib", __dir__), "-e", code)
+    assert status.success?, output
   end
 
   def test_if_and_unless_both_apply

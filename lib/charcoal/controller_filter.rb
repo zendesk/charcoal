@@ -1,4 +1,5 @@
 require "active_support/core_ext/array/extract_options"
+require "active_support/core_ext/hash/keys"
 
 module Charcoal
   module ControllerFilter
@@ -38,7 +39,7 @@ module Charcoal
         lambda { |controller| controller.send(directive.to_sym) }
       when Proc
         # Like Rails callbacks, evaluate blocks in the controller's context.
-        if directive.arity > 0
+        if directive.parameters.any? { |kind, _| [:req, :opt, :rest].include?(kind) }
           lambda { |controller| controller.instance_exec(controller, &directive) }
         else
           lambda { |controller| controller.instance_exec(&directive) }
