@@ -1,3 +1,6 @@
+require "active_support/core_ext/array/extract_options"
+require "active_support/core_ext/hash/keys"
+
 module Charcoal
   module ControllerFilter
     def self.included(klass)
@@ -8,17 +11,17 @@ module Charcoal
       def allow(filter, &block)
         action = "allow_#{filter}"
         define_method action do |*args|
-          # If we don't need 1.8 compat then ->(options = {}) instead of *args and the next line
-          options = args.last.is_a?(Hash) ? args.pop : {}
+          options = args.extract_options!
           options.assert_valid_keys(:only, :except, :if, :unless)
 
           methods = args.map(&:to_sym)
           methods = [:all] if methods.empty?
 
-          directive = if options[:unless]
-            lambda { |c| !parse_directive(options[:unless]).call(c) }
-          else
-            parse_directive(options[:if] || true)
+          if_conditions = Array(options[:if]).map { |condition| parse_directive(condition) }
+          unless_conditions = Array(options[:unless]).map { |condition| parse_directive(condition) }
+          directive = lambda do |controller|
+            if_conditions.all? { |condition| condition.call(controller) } &&
+              unless_conditions.none? { |condition| condition.call(controller) }
           end
 
           methods.each do |method|
@@ -31,12 +34,18 @@ module Charcoal
     private
 
     def parse_directive(directive)
-      return directive if directive.respond_to?(:call)
-
-      if directive.respond_to?(:to_sym) && method_defined?(directive.to_sym)
-        lambda { |c| c.send(directive.to_sym) }
+      case directive
+      when Symbol, String
+        lambda { |controller| controller.send(directive.to_sym) }
+      when Proc
+        # Like Rails callbacks, evaluate blocks in the controller's context.
+        if directive.parameters.any? { |kind, _| [:req, :opt, :rest].include?(kind) }
+          lambda { |controller| controller.instance_exec(controller, &directive) }
+        else
+          lambda { |controller| controller.instance_exec(&directive) }
+        end
       else
-        lambda { |c| directive }
+        directive.respond_to?(:call) ? directive : lambda { |_| directive }
       end
     end
   end
