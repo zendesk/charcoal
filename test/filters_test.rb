@@ -128,6 +128,18 @@ class FiltersTest < ActiveSupport::TestCase
           assert subject.filtering_allowed?
         end
       end
+
+      context "with an all-actions allowance" do
+        setup do
+          FiltersControllerTester.allow_filtering :all
+          FiltersControllerTester.allow_filtering :test_action1, if: false
+        end
+
+        should "fall back to all when the action-specific condition fails" do
+          change_params(action: :test_action1)
+          assert subject.filtering_allowed?
+        end
+      end
     end
   end
 end
