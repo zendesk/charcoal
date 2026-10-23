@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Dropped support for Ruby 3.2.
 * Dropped support for Rails 7.0.
 
+## [2.10.0] - 2026-10-23
+
+* Added Rails-style condition handling to controller filters, including private predicates, controller-context blocks, condition arrays, and combined `if`/`unless` options.
+* Fixed `if: false` enabling filters and private or late-defined method predicates being treated as truthy values.
+
 ## [2.9.0] - 2026-07-24
 
 * Fixed compatibility with Rails main after `ActionDispatch::Routing::HTTP_METHODS` was removed.
